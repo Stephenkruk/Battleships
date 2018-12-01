@@ -1,13 +1,22 @@
-var rows = [A, B, C, D, E, F, G, H, I, J]
-var cols = 10;
+var rows = 10;
+var cols = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 
-var gameContainer = document.getElementsById("yourgrid");
+function initGrid(typeId, typeGrid){
+    var gameBoard = document.getElementById(typeGrid);
 
-    for (var i = 0; i <= rows.length; i++) {
-        var tr = document.createElement('tr');
+    for (var i = 0; i < rows; i++) {
+        var tr = document.createElement("tr");
+        gameBoard.appendChild(tr);
+        tr.id = i+1;
 
-        for (var j = 1; j <= cols; j++) {
-            var td = document.createElement('td');
-            td.id =  rows[i] + j;
+        for (var j = 0; j < cols.length; j++) {  
+            var td = document.createElement("td");
+            tr.appendChild(td);
+            td.id =  typeId + cols[i] + (j + 1);
+            td.className = "cell_empty";
         }
     }
+}
+
+initGrid("y", "yourgrid");
+initGrid("o", "oppgrid");
