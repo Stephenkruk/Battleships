@@ -13,7 +13,7 @@ function initGrid(typeId, typeGrid){
             var td = document.createElement("td");
             tr.appendChild(td);
             td.id =  typeId + cols[i] + (j + 1);
-            td.className = "cell_empty";
+            td.className = "cell-empty";
         }
     }
 }
