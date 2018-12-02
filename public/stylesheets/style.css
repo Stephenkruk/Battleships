@@ -11,7 +11,7 @@ table {
   border-spacing: 0px;
 }
 
-.o-cell-empty {
+.cell-empty {
   border: 1px solid black;
   padding: 0px;
   height: 20px;

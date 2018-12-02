@@ -9,8 +9,8 @@ function initGrid(typeId, typeGrid){
         for (var j = 0; j < 10; j++) {  
             var td = document.createElement("td");
             tr.appendChild(td);
-            td.id =  typeId + i + "_" + j;
-            td.className = typeId + "-cell-empty";
+            td.id =  typeId + i + "," + j;
+            td.className = "cell-empty "+ typeId + "-cell-empty ";
         }
     }
 }
