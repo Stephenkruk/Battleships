@@ -20,3 +20,7 @@ function initGrid(typeId, typeGrid){
 
 initGrid("y", "yourgrid");
 initGrid("o", "oppgrid");
+
+document.getElementById("oppgrid").addEventListener("click", function(){
+    alert("You shot something!");
+});
