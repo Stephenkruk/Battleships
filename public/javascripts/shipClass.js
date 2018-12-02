@@ -47,8 +47,10 @@ class Ship {
                 hit = true;
             }
         });
-            this.occupies[index].hit = true;
-            this.hits++;
+            this.occupies[index].hit = hit;
+            if (hit = true) {
+                this.hits++;
+            }
     }
 
     liveCheck() {
