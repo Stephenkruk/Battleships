@@ -22,3 +22,15 @@ table {
   background: rgba(255, 0, 0, .5);
   cursor: pointer;
 }
+
+.carrier-cell{
+  border: 1px solid black;
+  padding: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+#carrier:hover{
+  background: rgba(255, 0, 0, .5);
+  cursor: pointer;
+}
