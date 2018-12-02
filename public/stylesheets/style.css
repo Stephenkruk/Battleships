@@ -20,4 +20,5 @@ table {
 
 .o-cell-empty:hover{
   background: rgba(255, 0, 0, .5);
+  cursor: pointer;
 }
