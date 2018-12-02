@@ -11,13 +11,13 @@ table {
   border-spacing: 0px;
 }
 
-.cell-empty {
+.o-cell-empty {
   border: 1px solid black;
   padding: 0px;
   height: 20px;
   width: 20px;
 }
 
-.cell-empty:hover{
+.o-cell-empty:hover{
   background: rgba(255, 0, 0, .5);
 }

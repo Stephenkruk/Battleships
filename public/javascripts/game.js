@@ -10,7 +10,7 @@ function initGrid(typeId, typeGrid){
             var td = document.createElement("td");
             tr.appendChild(td);
             td.id =  typeId + i + "_" + j;
-            td.className = "cell-empty";
+            td.className = typeId + "-cell-empty";
         }
     }
 }
