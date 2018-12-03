@@ -16,26 +16,26 @@ function placeRandomShip(length, isVertical, offsetX, offsetY, type, name) {
     if (isVertical){
         for (var i = 0; i < length; i++) {
             if (offsetY + i > 9|| gridValues[offsetY + i][offsetX] != 0) {
-                placeRandomShip(length, isVertical, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), type);
+                placeRandomShip(length, isVertical, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), type, name);
                 return;
             }
         }
         for (var i = 0; i < length; i++) { 
             gridValues[offsetY + i][offsetX] = type;
         }
-        name = new Ship(length, {x: offsetX, y:offsetY}, {x: offsetX, y:offsetY+length}, true, 0);
+        name = new Ship(length, {x: offsetX, y:offsetY}, {x: offsetX, y:offsetY+length}, true, 0, name);
         console.log(name);
     } else {
         for (var i = 0; i < length; i++) {
             if (offsetX + i > 9|| gridValues[offsetY][offsetX + i] != 0) {
-                placeRandomShip(length, isVertical, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), type);
+                placeRandomShip(length, isVertical, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), name);
                 return;
             }   
         }
         for (var i = 0; i < length; i++) {
             gridValues[offsetY][offsetX + i] = type;
         }
-        name = new Ship(length, {x: offsetX, y:offsetY}, {x: offsetX+length, y:offsetY}, true, 0);
+        name = new Ship(length, {x: offsetX, y:offsetY}, {x: offsetX+length, y:offsetY}, true, 0, type);
         console.log(name);
     }
 }

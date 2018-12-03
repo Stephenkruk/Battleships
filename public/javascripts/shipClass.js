@@ -4,12 +4,13 @@ class Ship {
         end    = ending coordinate
         live   = true if ship live ("afloat"), false if ship sunk
     */
-    constructor(length, start, end, live, hits) {
+    constructor(length, start, end, live, hits, type) {
         this.length = length;
         this.start = start;
         this.end = end;
         this.live = live;
         this.hits = hits;
+        this.type = type;
     
         // makes an array of all occupied coordinates (hit, x, y)
         this.occupies = [];
