@@ -23,6 +23,26 @@ table {
   opacity: 30%;
 }
 
+.cell-carrier {
+  background: red;
+}
+
+.cell-battleship{
+  background: blue;
+}
+
+.cell-cruiser{
+  background: orange;
+}
+
+.cell-submarine{
+  background: green;
+}
+
+.cell-destroyer{
+  background: yellow;
+}
+
 .cell-filled {
   background: white;
 }

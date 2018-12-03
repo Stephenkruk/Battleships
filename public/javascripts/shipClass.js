@@ -4,10 +4,13 @@ class Ship {
         end    = ending coordinate
         live   = true if ship live ("afloat"), false if ship sunk
     */
-    constructor(length, start, end, live, hits) {
+    constructor(length, start, end, live, hits, type) {
         this.length = length;
-        this.live = true;
-        this.hits = 0;
+        this.start = start;
+        this.end = end;
+        this.live = live;
+        this.hits = hits;
+        this.type = type;
     
         // makes an array of all occupied coordinates (hit, x, y)
         this.occupies = [];
@@ -36,13 +39,18 @@ class Ship {
         this.end.y = y;
     }
 
+        // returns if false if ship sunk
+        getEnd(Ship) {
+            return this.live;
+        }
+
     // checks if the ship is hit by checking if the ship occupies the hit coordinate
     hitCheck(target) {
         var index;
         var hit = false;
         // cycles through each element in occupies
         this.occupies.forEach(function(element) {
-            // if the x and y values of an element match the x and y of the target hit is te to true
+            // if the x and y values of an element match the x and y of the target hit is set to true
             if (element.x == target.x && element.y == target.y) {
                 hit = true;
             }
