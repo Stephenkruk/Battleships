@@ -36,6 +36,11 @@ class Ship {
         this.end.y = y;
     }
 
+    // returns if false if ship sunk
+    getEnd(Ship) {
+        return this.live;
+    }
+
     // checks if the ship is hit by checking if the ship occupies the hit coordinate
     hitCheck(target) {
         var index;
