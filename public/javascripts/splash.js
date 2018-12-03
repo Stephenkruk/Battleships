@@ -35,7 +35,7 @@ function placeRandomShip(length, isVertical, offsetX, offsetY, type, name) {
         for (var i = 0; i < length; i++) {
             gridValues[offsetY][offsetX + i] = type;
         }
-        name = new Ship(length, {x: offsetX, y:offsetY}, {x: offsetX+length, y:offsetY}, true, 0, type);
+        name = new Ship(length, {x: offsetX, y:offsetY}, {x: offsetX+length, y:offsetY}, true, 0, name);
         console.log(name);
     }
 }
