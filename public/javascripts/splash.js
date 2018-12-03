@@ -10,39 +10,32 @@ for (var i = 0; i < 10; i++) {
 }
 
 function placeRandomShip(length, isVertical, offsetX, offsetY){
-var oppSide = 1;
 
     if (isVertical){
         for (var i = 0; i < length; i++) {
-
-            if ((offsetY + i) > 9) {
-                gridValues[offsetY - oppSide][offsetX] = 1;
-                oppSide++;
-            }else if (gridValues[offsetY + i][offsetX] == 1) {
-                gridValues[offsetY - oppSide][offsetX] = 1;
-                oppSide++;
-            } else {
-            gridValues[offsetY + i][offsetX] = 1;
+            if (offsetY + i > 9|| gridValues[offsetY][offsetX + i] == 1 ) {
+                placeRandomShip(length, isVertical, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10));
+                return;
             }
+        }
+        for (var i = 0; i < length; i++) { 
+            gridValues[offsetX][offsetY + i] = 1;
         }
     } else {
         for (var i = 0; i < length; i++) {
-
-            if ((offsetX + i) > 9) {
-                gridValues[offsetY][offsetX - oppSide] = 1;
-                oppSide++
-            } else if (gridValues[offsetY][offsetX + i] == 1) {
-                gridValues[offsetY][offsetX - oppSide] = 1;
-                oppSide++;
-            } else {
-                gridValues[offsetY][offsetX + i] = 1;
-            }
+            if (offsetX + i > 9|| gridValues[offsetY + i][offsetX] == 1 ) {
+                placeRandomShip(length, isVertical, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10));
+                return;
+            }   
+        }
+        for (var i = 0; i < length; i++) {
+            gridValues[offsetY + i][offsetX] = 1;
         }
     }
 }
 
 //place Aircraftcarrier
-placeRandomShip(5, Math.random() >= 0.5, 2, 2);
+placeRandomShip(5, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10));
 
 console.log(gridValues);
 
