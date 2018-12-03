@@ -23,6 +23,10 @@ table {
   opacity: 30%;
 }
 
+.ship:hover {
+  cursor: pointer;
+}
+
 .cell-carrier {
   background: red;
 }
@@ -52,20 +56,8 @@ table {
   cursor: pointer;
 }
 
-.carrier-cell{
-  border: 1px solid black;
-  padding: 0px;
-  height: 20px;
-  width: 20px;
-}
-
 .logo {
   opacity: 0%;
-}
-
-#carrier:hover{
-  background: rgba(255, 0, 0, .5);
-  cursor: pointer;
 }
 
 .readybutton {

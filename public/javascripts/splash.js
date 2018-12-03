@@ -28,7 +28,7 @@ function placeRandomShip(length, isVertical, offsetX, offsetY, type, name) {
     } else {
         for (var i = 0; i < length; i++) {
             if (offsetX + i > 9|| gridValues[offsetY][offsetX + i] != 0) {
-                placeRandomShip(length, isVertical, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), name);
+                placeRandomShip(length, isVertical, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), type, name);
                 return;
             }   
         }
@@ -55,15 +55,15 @@ function updateGrid(typeGrid) {
             if (gridValues[i][j] == 0){
                 td.className = "cell";
             } else if (gridValues[i][j] == 3) {
-                td.className = "cell cell-carrier";
+                td.className = "cell ship cell-carrier";
             } else if (gridValues[i][j] == 4) {
-                td.className = "cell cell-battleship";
+                td.className = "cell ship cell-battleship";
             } else if (gridValues[i][j] == 5) {
-                td.className = "cell cell-cruiser";
+                td.className = "cell ship cell-cruiser";
             } else if (gridValues[i][j] == 6) {
-                td.className = "cell cell-submarine";
+                td.className = "cell ship cell-submarine";
             } else {
-                td.className = "cell cell-destroyer";
+                td.className = "cell ship cell-destroyer";
             }
         }
     }
@@ -101,15 +101,6 @@ function randomizer() {
 
 randomizer();
 
-document.getElementById("carrier").addEventListener("click", function(){
-    var clicked = false;
-    var carrier = document.getElementById("carrier");
-
-    if (clicked) {
-        carrier.className = "";
-        clicked = false;
-    } else {
-        carrier.className = "selected";
-        clicked = true;
-    }
+document.getElementById.onclick("click", function(){
+    
 });
