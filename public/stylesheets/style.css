@@ -1,6 +1,8 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #3D85C0;
+  
 }
 
 a {
@@ -33,4 +35,25 @@ table {
 #carrier:hover{
   background: rgba(255, 0, 0, .5);
   cursor: pointer;
+}
+
+.readybutton {
+  background-color: #0A538F;
+  border: none;
+  color: white;
+  padding: 15px 25px;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.statistics {
+   color: white;
+   font-size: 20px;
+   font: 
+}
+
+.stat {
+  color: white;
+  font-size: 16px;
 }
