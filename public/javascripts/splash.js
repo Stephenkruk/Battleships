@@ -71,10 +71,18 @@ for (var i = 0; i < 10; i++) {
         var td = document.createElement("td");
         tr.appendChild(td);
         td.id = i + "," + j;
-        if (gridValues[i][j] == 1){
-            td.className = "cell cell-filled";
-        } else {
+        if (gridValues[i][j] == 0){
             td.className = "cell";
+        } else if (gridValues[i][j] == 3) {
+            td.className = "cell cell-carrier";
+        } else if (gridValues[i][j] == 4) {
+            td.className = "cell cell-battleship";
+        } else if (gridValues[i][j] == 5) {
+            td.className = "cell cell-cruiser";
+        } else if (gridValues[i][j] == 6) {
+            td.className = "cell cell-submarine";
+        } else {
+            td.className = "cell cell-destroyer";
         }
     }
 }
