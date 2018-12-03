@@ -59,6 +59,8 @@ function randomizer() {
 console.log("randomizer was called");
 }
 
+randomizer();
+
 console.log(gridValues);
 
 var gameBoard = document.getElementById("startgrid");
