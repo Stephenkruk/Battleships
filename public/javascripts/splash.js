@@ -1,4 +1,3 @@
-import {Ship} from './shipClass';
 var gridValues = [];
 
 //initializes a 2d-array with values 0;
@@ -36,6 +35,8 @@ function placeRandomShip(length, isVertical, offsetX, offsetY, type, name) {
         for (var i = 0; i < length; i++) {
             gridValues[offsetY][offsetX + i] = type;
         }
+        name = new Ship(length, {x: offsetX, y:offsetY}, {x: offsetX+length, y:offsetY}, true, 0);
+        console.log(name);
     }
 }
 

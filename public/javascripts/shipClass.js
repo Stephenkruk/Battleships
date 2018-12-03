@@ -66,5 +66,3 @@ class Ship {
         }
     }
 }
-
-export {Ship}
