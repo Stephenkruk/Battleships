@@ -49,11 +49,12 @@ table {
 
 .statistics {
    color: white;
-   font-size: 20px;
-   font: 
+   font-size: 20px; 
+   text-align: right;
 }
 
 .stat {
   color: white;
   font-size: 16px;
+  text-align: right;
 }
