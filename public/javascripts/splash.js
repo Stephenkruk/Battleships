@@ -9,36 +9,47 @@ for (var i = 0; i < 10; i++) {
     }
 }
 
-function placeRandomShip(length, isVertical, offsetX, offsetY) {
+function placeRandomShip(length, isVertical, offsetX, offsetY, type) {
 
     if (isVertical){
         for (var i = 0; i < length; i++) {
-            if (offsetY + i > 9|| gridValues[offsetY + i][offsetX] == 1 ) {
-                placeRandomShip(length, isVertical, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10));
+            if (offsetY + i > 9|| gridValues[offsetY + i][offsetX] != 0) {
+                placeRandomShip(length, isVertical, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), type);
                 return;
             }
         }
         for (var i = 0; i < length; i++) { 
-            gridValues[offsetY + i][offsetX] = 1;
+            gridValues[offsetY + i][offsetX] = type;
         }
     } else {
         for (var i = 0; i < length; i++) {
-            if (offsetX + i > 9|| gridValues[offsetY][offsetX + i] == 1 ) {
-                placeRandomShip(length, isVertical, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10));
+            if (offsetX + i > 9|| gridValues[offsetY][offsetX + i] != 0) {
+                placeRandomShip(length, isVertical, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), type);
                 return;
             }   
         }
         for (var i = 0; i < length; i++) {
-            gridValues[offsetY][offsetX + i] = 1;
+            gridValues[offsetY][offsetX + i] = type;
         }
     }
 }
 
-placeRandomShip(5, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10));
-placeRandomShip(4, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10));
-placeRandomShip(3, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10));
-placeRandomShip(3, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10));
-placeRandomShip(2, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10));
+/*
+0 = empty field
+1 = miss
+2 = hit
+3 = carrier
+4 = battleship
+5 = cruiser
+6 = submarine
+7 = destroyer
+*/
+
+placeRandomShip(5, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 3);
+placeRandomShip(4, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 4);
+placeRandomShip(3, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 5);
+placeRandomShip(3, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 6);
+placeRandomShip(2, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 7);
 
 console.log(gridValues);
 
