@@ -9,7 +9,7 @@ for (var i = 0; i < 10; i++) {
     }
 }
 
-function placeRandomShip(length, isVertical, offsetX, offsetY){
+function placeRandomShip(length, isVertical, offsetX, offsetY) {
 
     if (isVertical){
         for (var i = 0; i < length; i++) {
@@ -43,10 +43,6 @@ placeRandomShip(2, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.fl
 
 console.log(gridValues);
 
-
-
-//initialize gameboard
-/**
 var gameBoard = document.getElementById("startgrid");
 
 for (var i = 0; i < 10; i++) {
@@ -58,7 +54,11 @@ for (var i = 0; i < 10; i++) {
         var td = document.createElement("td");
         tr.appendChild(td);
         td.id = i + "," + j;
-        td.className = "cell-empty";
+        if (gridValues[i][j] == 1){
+            td.className = "cell-filled";
+        } else {
+            td.className = "cell-empty";
+        }
     }
 }
 
@@ -74,4 +74,3 @@ document.getElementById("carrier").addEventListener("click", function(){
         clicked = true;
     }
 });
-*/
