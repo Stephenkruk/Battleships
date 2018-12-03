@@ -1,13 +1,17 @@
 var gridValues = [];
 
 //initializes a 2d-array with values 0;
-for (var i = 0; i < 10; i++) {
-    gridValues[i] = [];
+function reset() {
+    for (var i = 0; i < 10; i++) {
+        gridValues[i] = [];
 
-    for (var j = 0; j < 10; j++) {
-        gridValues[i][j] = 0;
+        for (var j = 0; j < 10; j++) {
+            gridValues[i][j] = 0;
+        }
     }
 }
+
+reset();
 
 function placeRandomShip(length, isVertical, offsetX, offsetY, type) {
 
@@ -45,11 +49,15 @@ function placeRandomShip(length, isVertical, offsetX, offsetY, type) {
 7 = destroyer
 */
 
-placeRandomShip(5, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 3);
-placeRandomShip(4, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 4);
-placeRandomShip(3, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 5);
-placeRandomShip(3, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 6);
-placeRandomShip(2, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 7);
+function randomizer() {
+    reset();
+    placeRandomShip(5, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 3);
+    placeRandomShip(4, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 4);
+    placeRandomShip(3, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 5);
+    placeRandomShip(3, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 6);
+    placeRandomShip(2, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 7);
+console.log("randomizer was called");
+}
 
 console.log(gridValues);
 
