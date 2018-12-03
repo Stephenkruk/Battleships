@@ -36,8 +36,8 @@ function placeRandomShip(length, isVertical, offsetX, offsetY, type) {
     }
 }
 
-function updateGrid() {
-    var gameBoard = document.getElementById("startgrid");
+function updateGrid(typeGrid) {
+    var gameBoard = document.getElementById(typeGrid);
 
     for (var i = 0; i < 10; i++) {
         var tr = document.createElement("tr");
@@ -65,6 +65,12 @@ function updateGrid() {
     }
 }
 
+function deleteGrid() {
+    for (var i = 0; i < 10; i++) {
+        $("#" + i).remove();
+    }
+}
+
 /*
 0 = empty field
 1 = miss
@@ -83,7 +89,8 @@ function randomizer() {
     placeRandomShip(3, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 5);
     placeRandomShip(3, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 6);
     placeRandomShip(2, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 7);
-    updateGrid();
+    deleteGrid();
+    updateGrid("startgrid");
     console.log("randomizer was called");
     console.log(gridValues);
 }
