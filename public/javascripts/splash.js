@@ -36,6 +36,35 @@ function placeRandomShip(length, isVertical, offsetX, offsetY, type) {
     }
 }
 
+function updateGrid() {
+    var gameBoard = document.getElementById("startgrid");
+
+    for (var i = 0; i < 10; i++) {
+        var tr = document.createElement("tr");
+        gameBoard.appendChild(tr);
+        tr.id = i;
+
+        for (var j = 0; j < 10; j++) {  
+            var td = document.createElement("td");
+            tr.appendChild(td);
+            td.id = i + "," + j;
+            if (gridValues[i][j] == 0){
+                td.className = "cell";
+            } else if (gridValues[i][j] == 3) {
+                td.className = "cell cell-carrier";
+            } else if (gridValues[i][j] == 4) {
+                td.className = "cell cell-battleship";
+            } else if (gridValues[i][j] == 5) {
+                td.className = "cell cell-cruiser";
+            } else if (gridValues[i][j] == 6) {
+                td.className = "cell cell-submarine";
+            } else {
+                td.className = "cell cell-destroyer";
+            }
+        }
+    }
+}
+
 /*
 0 = empty field
 1 = miss
@@ -54,38 +83,12 @@ function randomizer() {
     placeRandomShip(3, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 5);
     placeRandomShip(3, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 6);
     placeRandomShip(2, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 7);
+    updateGrid();
     console.log("randomizer was called");
     console.log(gridValues);
 }
 
 randomizer();
-
-var gameBoard = document.getElementById("startgrid");
-
-for (var i = 0; i < 10; i++) {
-    var tr = document.createElement("tr");
-    gameBoard.appendChild(tr);
-    tr.id = i;
-
-    for (var j = 0; j < 10; j++) {  
-        var td = document.createElement("td");
-        tr.appendChild(td);
-        td.id = i + "," + j;
-        if (gridValues[i][j] == 0){
-            td.className = "cell";
-        } else if (gridValues[i][j] == 3) {
-            td.className = "cell cell-carrier";
-        } else if (gridValues[i][j] == 4) {
-            td.className = "cell cell-battleship";
-        } else if (gridValues[i][j] == 5) {
-            td.className = "cell cell-cruiser";
-        } else if (gridValues[i][j] == 6) {
-            td.className = "cell cell-submarine";
-        } else {
-            td.className = "cell cell-destroyer";
-        }
-    }
-}
 
 document.getElementById("carrier").addEventListener("click", function(){
     var clicked = false;
