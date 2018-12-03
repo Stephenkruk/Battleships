@@ -54,8 +54,8 @@ function randomizer() {
     placeRandomShip(3, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 5);
     placeRandomShip(3, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 6);
     placeRandomShip(2, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 7);
-    console.log("randomizer was called");
-    console.log(gridValues);
+console.log("randomizer was called");
+console.log(gridValues);
 }
 
 randomizer();
