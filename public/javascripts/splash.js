@@ -34,7 +34,6 @@ function placeRandomShip(length, isVertical, offsetX, offsetY) {
     }
 }
 
-//place Aircraftcarrier
 placeRandomShip(5, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10));
 placeRandomShip(4, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10));
 placeRandomShip(3, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10));
@@ -55,9 +54,9 @@ for (var i = 0; i < 10; i++) {
         tr.appendChild(td);
         td.id = i + "," + j;
         if (gridValues[i][j] == 1){
-            td.className = "cell-filled";
+            td.className = "cell cell-filled";
         } else {
-            td.className = "cell-empty";
+            td.className = "cell";
         }
     }
 }
