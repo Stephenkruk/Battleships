@@ -1,3 +1,4 @@
+import {Ship} from './shipClass';
 var gridValues = [];
 
 //initializes a 2d-array with values 0;
@@ -11,7 +12,7 @@ function reset() {
     }
 }
 
-function placeRandomShip(length, isVertical, offsetX, offsetY, type) {
+function placeRandomShip(length, isVertical, offsetX, offsetY, type, name) {
 
     if (isVertical){
         for (var i = 0; i < length; i++) {
@@ -23,6 +24,8 @@ function placeRandomShip(length, isVertical, offsetX, offsetY, type) {
         for (var i = 0; i < length; i++) { 
             gridValues[offsetY + i][offsetX] = type;
         }
+        name = new Ship(length, {x: offsetX, y:offsetY}, {x: offsetX, y:offsetY+length}, true, 0);
+        console.log(name);
     } else {
         for (var i = 0; i < length; i++) {
             if (offsetX + i > 9|| gridValues[offsetY][offsetX + i] != 0) {
@@ -84,11 +87,11 @@ function deleteGrid() {
 
 function randomizer() {
     reset();
-    placeRandomShip(5, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 3);
-    placeRandomShip(4, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 4);
-    placeRandomShip(3, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 5);
-    placeRandomShip(3, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 6);
-    placeRandomShip(2, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 7);
+    placeRandomShip(5, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 3, "carrier");
+    placeRandomShip(4, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 4, "battleship");
+    placeRandomShip(3, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 5, "cruiser");
+    placeRandomShip(3, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 6, "submarine");
+    placeRandomShip(2, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 7, "destroyer");
     deleteGrid();
     updateGrid("startgrid");
     console.log("randomizer was called");
