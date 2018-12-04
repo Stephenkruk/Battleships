@@ -59,7 +59,7 @@ function placeRandomShip(length, isVertical, offsetX, offsetY, type) {
         for (var i = 0; i < length; i++) { 
             gridValues[offsetY + i][offsetX] = type;
         }
-        var name = new Ship(length, {x: offsetX, y:offsetY}, {x: offsetX, y:offsetY+length}, true, 0, type);
+        var name = new Ship(length, {x: offsetX, y:offsetY}, {x: offsetX, y:offsetY + length}, true, 0, type);
         ships.push(name);
     } else {
         for (var i = 0; i < length; i++) {
@@ -71,7 +71,7 @@ function placeRandomShip(length, isVertical, offsetX, offsetY, type) {
         for (var i = 0; i < length; i++) {
             gridValues[offsetY][offsetX + i] = type;
         }
-        var name = new Ship(length, {x: offsetX, y:offsetY}, {x: offsetX+length, y:offsetY}, true, 0, type);
+        var name = new Ship(length, {x: offsetX, y:offsetY}, {x: offsetX + length, y:offsetY}, true, 0, type);
         ships.push(name);
     }
 }
@@ -92,7 +92,6 @@ function randomizer() {
 }
 
 randomizer();
-moveShip(ships[0]);
 
 function moveShip(ship) {
 
@@ -100,34 +99,26 @@ function moveShip(ship) {
         gridValues[ship.getOccupiesY(i)][ship.getOccupiesX(i)] = 0;
     }
 
-    console.log(gridValues);
-/*
-    console.log(gridValues);
-
     var currentYX = (currentCoord).toString(10).split("").map(function(t){return parseInt(t)});
     var nextYX = (nextCoord).toString(10).split("").map(function(t){return parseInt(t)});
     var dy = nextYX[0] - currentYX[0];
     var dx = nextYX[1] - currentYX[1];
 
-    console.log(nextYX);
-    console.log(currentYX);
-    console.log(dy);
-    console.log(dx);
-
     ship.updateShipCoords(ship.getStartX() + dx, ship.getStartY() + dy, ship.getEndX() + dx, ship.getEndY() + dy);
 
     if (ship.getStartX() == ship.getEndX()) {
-        // pushes every coordinate the ship occupies onto the occupies array
-        for (var i = ship.getStartY(); i <= ship.getEndY(); i++) {
+        //  changes every Coordinate on the grid
+        for (var i = ship.getStartY(); i < ship.getEndY(); i++) {
             gridValues[i][ship.getStartX()] = ship.getType();
         }
     } else {
-        for (var i = ship.getStartX(); i <= ship.getEndX(); i++) {
+        for (var i = ship.getStartX(); i < ship.getEndX(); i++) {
             gridValues[ship.getStartY()][i] = ship.getType();
         }
     }
-
-    console.log(gridValues);*/
+    updateGrid("startgrid");
 }
 
-test();
+document.getElementById("readybutton").addEventListener("click", function() {
+    moveShip(ships[0]);
+});
