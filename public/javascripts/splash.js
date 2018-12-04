@@ -77,7 +77,6 @@ function deleteGrid() {
     for (var i = 0; i < 10; i++) {
         $("#" + i).remove();
     }
-    ships.empty();
 }
 
 /*
