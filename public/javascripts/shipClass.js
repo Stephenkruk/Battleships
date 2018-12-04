@@ -11,9 +11,9 @@ class Ship {
         this.live = live;
         this.hits = hits;
         this.type = type;
-    
         // makes an array of all occupied coordinates (hit, x, y)
         this.occupies = [];
+
         // if start and end x are equal only y values have to be "calculated"
         if (this.start.x == this.end.x) {
             // pushes every coordinate the ship occupies onto the occupies array
@@ -27,6 +27,27 @@ class Ship {
         }
     }
 
+    getOccupies(){
+        return this.occupies;
+    }
+
+    getOccupiesX(i){
+        return this.occupies[i].x;
+    }
+
+    getOccupiesY(i){
+        return this.occupies[i].y;
+    }
+
+    getType(){
+        return this.type;
+    }
+
+    getStartX() {return this.start.x}
+    getStartY() {return this.start.y}
+    getEndX() {return this.end.x}
+    getEndY() {return this.end.y}
+
     // sets start coordinates for the ship
     setStart(x, y) {
         this.start.x = x;
@@ -39,10 +60,32 @@ class Ship {
         this.end.y = y;
     }
 
-        // returns if false if ship sunk
-        getEnd(Ship) {
-            return this.live;
+    setStartX(x) {this.start.x = x;}
+    setStartY(y) {this.start.y = y;}
+    setEndX(x) {this.end.x = x;}
+    setEndY(y) {this.end.y = y;}
+
+    // returns if false if ship sunk
+    getLive() {
+        return this.live;
+    }
+    
+
+    updateShipCoords(startX, startY, endX, endY) {
+        this.setStart(startX, startY);
+        this.setEnd(endX, endY);
+
+        if (this.start.x == this.end.x) {
+            // pushes every coordinate the ship occupies onto the occupies array
+            for (var i = this.start.y; i <= this.end.y; i++) {
+                this.occupies.push({hit: false, x: this.start.x, y: i})
+            }
+        } else {
+            for (var i = this.start.x; i<= this.end.x; i++) {
+                this.occupies.push({hit: false, x: i, y: this.start.y})
+            }
         }
+    }
 
     // checks if the ship is hit by checking if the ship occupies the hit coordinate
     hitCheck(target) {
