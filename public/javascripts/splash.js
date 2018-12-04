@@ -1,4 +1,5 @@
 var gridValues = [];
+var ships = [];
 
 //initializes a 2d-array with values 0;
 function reset() {
@@ -24,6 +25,7 @@ function placeRandomShip(length, isVertical, offsetX, offsetY, type, name) {
             gridValues[offsetY + i][offsetX] = type;
         }
         name = new Ship(length, {x: offsetX, y:offsetY}, {x: offsetX, y:offsetY+length}, true, 0, name);
+        ships.push(name);
         console.log(name);
     } else {
         for (var i = 0; i < length; i++) {
@@ -36,8 +38,10 @@ function placeRandomShip(length, isVertical, offsetX, offsetY, type, name) {
             gridValues[offsetY][offsetX + i] = type;
         }
         name = new Ship(length, {x: offsetX, y:offsetY}, {x: offsetX+length, y:offsetY}, true, 0, name);
+        ships.push(name);
         console.log(name);
     }
+    console.log(ships);
 }
 
 function updateGrid(typeGrid) {
@@ -73,6 +77,7 @@ function deleteGrid() {
     for (var i = 0; i < 10; i++) {
         $("#" + i).remove();
     }
+    ships.empty();
 }
 
 /*
