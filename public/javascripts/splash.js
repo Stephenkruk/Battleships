@@ -41,7 +41,6 @@ function placeRandomShip(length, isVertical, offsetX, offsetY, type, name) {
         ships.push(name);
         console.log(name);
     }
-    console.log(ships);
 }
 
 function updateGrid(typeGrid) {
@@ -91,6 +90,7 @@ function deleteGrid() {
 */
 
 function randomizer() {
+    ships = [];
     reset();
     placeRandomShip(5, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 3, "carrier");
     placeRandomShip(4, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 4, "battleship");
@@ -101,6 +101,7 @@ function randomizer() {
     updateGrid("startgrid");
     console.log("randomizer was called");
     console.log(gridValues);
+    console.log(ships);
 }
 
 randomizer();
