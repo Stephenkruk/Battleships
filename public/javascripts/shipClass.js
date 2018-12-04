@@ -17,11 +17,11 @@ class Ship {
         // if start and end x are equal only y values have to be "calculated"
         if (this.start.x == this.end.x) {
             // pushes every coordinate the ship occupies onto the occupies array
-            for (var i = this.start.y; i < this.end.y; i++) {
+            for (var i = this.start.y; i <= this.end.y; i++) {
                 this.occupies.push({hit: false, x: this.start.x, y: i})
             }
         } else {
-            for (var i = this.start.x; i < this.end.x; i++) {
+            for (var i = this.start.x; i <= this.end.x; i++) {
                 this.occupies.push({hit: false, x: i, y: this.start.y})
             }
         }
@@ -77,12 +77,12 @@ class Ship {
 
         if (this.start.x == this.end.x) {
             // refreshes every coordinate in the occupies array
-            for (var i = this.start.y; i < this.end.y; i++) {
+            for (var i = this.start.y; i <= this.end.y; i++) {
                 this.occupies[j] = {hit: false, x: this.start.x, y: i};
                 j++;
             }
         } else {
-            for (var i = this.start.x; i < this.end.x; i++) {
+            for (var i = this.start.x; i <= this.end.x; i++) {
                 this.occupies[j] = {hit: false, x: i, y: this.start.y};
                 j++;
             }

@@ -2,7 +2,7 @@ var gridValues = [];
 var ships = [];
 //still hardcoded, needs to be interactive
 var currentCoord = "0,0";
-var nextCoord = "0,0";
+var nextCoord = "0,1";
 
 //initializes a 2d-array with values 0;
 function reset() {
@@ -71,7 +71,7 @@ function placeRandomShip(length, isVertical, offsetX, offsetY, type) {
             gridValues[offsetY + i][offsetX] = type;
         }
         //create a new ship object with the right coordinates and push in into the array of ships
-        var name = new Ship(length, {x: offsetX, y:offsetY}, {x: offsetX, y:offsetY + length}, true, 0, type);
+        var name = new Ship(length, {x: offsetX, y:offsetY}, {x: offsetX, y:offsetY + length - 1}, true, 0, type);
         ships.push(name);
     } else {
         for (var i = 0; i < length; i++) {
@@ -83,7 +83,7 @@ function placeRandomShip(length, isVertical, offsetX, offsetY, type) {
         for (var i = 0; i < length; i++) {
             gridValues[offsetY][offsetX + i] = type;
         }
-        var name = new Ship(length, {x: offsetX, y:offsetY}, {x: offsetX + length, y:offsetY}, true, 0, type);
+        var name = new Ship(length, {x: offsetX, y:offsetY}, {x: offsetX + length - 1, y:offsetY}, true, 0, type);
         ships.push(name);
     }
 }
@@ -112,6 +112,11 @@ function moveShip(ship) {
     var dy = nextYX[0] - currentYX[0];
     var dx = nextYX[1] - currentYX[1];
 
+    console.log(currentYX);
+    console.log(nextYX);
+    console.log(dx);
+    console.log(dy);
+
     //check if the new values are free for a ship to be placed on
     if (ship.getStartX() == ship.getEndX()) {
         //if the ship's startY or endY is out of bounds, inform the player that a ship can't be placed here.
@@ -121,11 +126,13 @@ function moveShip(ship) {
             return;
         }
         //check if all the values inbetween the start- and end-coordinate are free
-        for (var i = ship.getStartY() + dy; i < ship.getEndY() + dy; i++) {
-            if (gridValues[i][ship.getStartX() + dx] != 0) {
-                console.log("You can't place a ship there");
-                return;  
-            }
+        for (var i = ship.getStartY() + dy; i <= ship.getEndY() + dy; i++) {
+            if (gridValues[i][ship.getStartX() + dx] == ship.getType()) {
+
+            } else if (gridValues[i][ship.getStartX() + dx] != 0) {
+                    console.log("You can't place a ship there");
+                    return; 
+            } else {}
         }
     } else {
         //if the ship's startX or endX is out of bounds, inform the player that a ship can't be placed here.
@@ -135,11 +142,13 @@ function moveShip(ship) {
             return;
         }
         //check if all the values inbetween the start- and end-coordinate are free
-        for (var i = ship.getStartX() + dx; i < ship.getEndX() + dx; i++) {
-            if (gridValues[ship.getStartY() + dy][i] != 0) {
-                console.log("You can't place a ship there");
-                return;  
-            }
+        for (var i = ship.getStartX() + dx; i <= ship.getEndX() + dx; i++) {
+            if (gridValues[ship.getStartY() + dy][i] == ship.getType()) {
+
+            } else if (gridValues[ship.getStartY() + dy][i] != 0) {
+                    console.log("You can't place a ship there");
+                    return; 
+            } else {}
         }
     }
 
@@ -154,11 +163,11 @@ function moveShip(ship) {
     //change the values in the 2d-array
     if (ship.getStartX() == ship.getEndX()) {
         //changes the values to the value of the ship
-        for (var i = ship.getStartY(); i < ship.getEndY(); i++) {
+        for (var i = ship.getStartY(); i <= ship.getEndY(); i++) {
             gridValues[i][ship.getStartX()] = ship.getType();
         }
     } else {
-        for (var i = ship.getStartX(); i < ship.getEndX(); i++) {
+        for (var i = ship.getStartX(); i <= ship.getEndX(); i++) {
             gridValues[ship.getStartY()][i] = ship.getType();
         }
     }
