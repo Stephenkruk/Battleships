@@ -99,7 +99,7 @@ function moveShip(ship) {
     for (var i = 0; i < ship.getOccupies().length; i++) {
         gridValues[ship.getOccupiesY(i)][ship.getOccupiesX(i)] = 0;
     }
-    
+
     console.log(gridValues);
 /*
     console.log(gridValues);
