@@ -90,25 +90,16 @@ function randomizer() {
     updateGrid("startgrid");
     console.log(ships);
 }
-var testVar = true;
 
-function test() {
-    if (testVar) {
-        randomizer();
-        testVar = false;
-        test();
-    } else {
-        moveShip(ships[0]);
-    }
-}
+randomizer();
+moveShip(ships[0]);
 
 function moveShip(ship) {
-    console.log(gridValues);
 
     for (var i = 0; i < ship.getOccupies().length; i++) {
         gridValues[ship.getOccupiesY(i)][ship.getOccupiesX(i)] = 0;
     }
-
+    
     console.log(gridValues);
 /*
     console.log(gridValues);
