@@ -20,11 +20,8 @@ function reset() {
     ships.splice(0, ships.length)
 }
 
-
 // makes a clickable grid     
 function clickableGrid(callback, typeGrid) {
-    // console.log("new grid being made")
-    // console.log(gridValues)
     // removes existing grid (so it can be replaced)
     var element;
     element = document.getElementById(typeGrid);
@@ -152,7 +149,6 @@ function randomizer(random) {
             moveShip(clickedShip, 0, current, 0);
             // return;
         }
-
     }, "startgrid");
 }
 
@@ -176,19 +172,15 @@ function moveShip(ship, localState, current, next) {
         nextCoord = next
         publicState = 0;
     }
-    console.log("current coordinate:", currentCoord);
-    console.log("next coordinate", nextCoord);
 
     // calculate the difference between currentCoord and nextCoord
     var dy = nextCoord[0] - currentCoord[0];
     var dx = nextCoord[1] - currentCoord[1];
 
-    console.log("change in x, change in y", dx + ", ", dy);
-    console.log("Ship that's going to be moved: ", localShip);
-    //check if the new values are free for a ship to be placed on
+    // check if the new values are free for a ship to be placed on
     if (localShip.getStartX() == localShip.getEndX()) {
-        //if the ship's startY or endY is out of bounds, inform the player that a ship can't be placed here.
-        //You don't need to test the x-values since a vertical ship can't be placed out of bounds in the x-axis
+        // if the ship's startY or endY is out of bounds, inform the player that a ship can't be placed here.
+        // You don't need to test the x-values since a vertical ship can't be placed out of bounds in the x-axis
         if (ship.getStartY() + dy < 0 || ship.getEndY() + dy > 9) {
             console.log("You can't place a ship there");
             return;
@@ -248,6 +240,7 @@ function moveShip(ship, localState, current, next) {
 }
 
 // rotates the selected/clicked ship clockwise
+// UNFINISHED
 function rotateShip() {
     ship = clickedShip;
     // starting coordinate stays in place
@@ -291,26 +284,9 @@ function rotateShip() {
         updateGrid(ship, startX, startY, endX, endY);
         return;
     }
-    // //change the values in the 2d-array
-    // if (startX == endX) {
-    //         //changes the values to the value of the ship
-    //         for (var i = endY; i <= endY; i++) {
-    //             gridValues[i][startX] = ship.getType();
-    //         }
-    // } else {
-    //     for (var i = startX; i <= endX; i++) {
-    //         gridValues[endY][i] = ship.getType();
-    //     }
-    // }
-
-    // }
-    // ship.updateShipCoords(startX, startY, endX, endY);
-    // console.log("start(x,y): (", startX + ", " + startY + ")");
-    // console.log("end(x,y): (", endX + ", " + endY + ")");
-    // //update the grid to show the change to the user
-    // randomizer(0);
 }
 
+// UNFINISHED
 function updateGrid(ship, startX, startY, endX, endY) {
     console.log("new coordinates:");
     console.log("start(x,y): (", startX + ", " + startY + ")");
