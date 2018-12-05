@@ -5,10 +5,9 @@ var publicState = 0;
 var currentCoord;
 var nextCoord;
 
-
 //initializes a 2d-array with values 0;
 function reset() {
-    gridValues.splice(0,gridValues.length);
+    gridValues.splice(0, gridValues.length);
     ships = [];
     for (var i = 0; i < 10; i++) {
         gridValues[i] = [];
@@ -18,39 +17,39 @@ function reset() {
         }
     }
     //empties the final array
-    ships.splice(0,ships.length)
+    ships.splice(0, ships.length)
 }
 
 
 // makes a clickable grid     
-function clickableGrid(callback, typeGrid){
+function clickableGrid(callback, typeGrid) {
     // console.log("new grid being made")
     // console.log(gridValues)
     // removes existing grid (so it can be replaced)
     var element;
     element = document.getElementById(typeGrid);
-    if (element){
+    if (element) {
         element.innerHTML = null;
     }
 
     var grid = document.getElementById(typeGrid);
     grid.className = 'grid';
-    
+
     // create a new table
-    for (var r = 0; r < 10; ++r){
+    for (var r = 0; r < 10; ++r) {
         var tr = grid.appendChild(document.createElement('tr'));
-        for (var c = 0; c < 10; ++c){
-           // adds an eventlistener to all cells
+        for (var c = 0; c < 10; ++c) {
+            // adds an eventlistener to all cells
             var cell = tr.appendChild(document.createElement('td'));
-            cell.addEventListener('click',(function(r,c){
-                return function(){
-                    callback(r,c);
+            cell.addEventListener('click', (function (r, c) {
+                return function () {
+                    callback(r, c);
                 }
-            })(r,c),false);
+            })(r, c), false);
 
             cell.id = r + "," + c;
             //based on the values of the cell coordinate, give a class to the cell
-            if (gridValues[r][c] == 0){
+            if (gridValues[r][c] == 0) {
                 cell.className = "cell";
             } else if (gridValues[r][c] == 3) {
                 cell.className = "cell ship cell-carrier";
@@ -71,7 +70,7 @@ function clickableGrid(callback, typeGrid){
 
 function placeRandomShip(length, isVertical, offsetX, offsetY, type) {
     //check if the function is vertical
-    if (isVertical){
+    if (isVertical) {
         for (var i = 0; i < length; i++) {
             //if the offsets are out of bounds or the coordinate is taken by another ship, try again with another placement
             if (offsetY + i > 9 || gridValues[offsetY + i][offsetX] != 0) {
@@ -79,24 +78,24 @@ function placeRandomShip(length, isVertical, offsetX, offsetY, type) {
                 return;
             }
         }
-        for (var i = 0; i < length; i++) { 
+        for (var i = 0; i < length; i++) {
             //set the gridValues to the type
             gridValues[offsetY + i][offsetX] = type;
         }
         //create a new ship object with the right coordinates and push in into the array of ships
-        var name = new Ship(length, {x: offsetX, y:offsetY}, {x: offsetX, y:offsetY + length - 1}, true, 0, type);
+        var name = new Ship(length, { x: offsetX, y: offsetY }, { x: offsetX, y: offsetY + length - 1 }, true, 0, type);
         ships.push(name);
     } else {
         for (var i = 0; i < length; i++) {
             if (offsetX + i > 9 || gridValues[offsetY][offsetX + i] != 0) {
                 placeRandomShip(length, isVertical, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), type);
                 return;
-            }   
+            }
         }
         for (var i = 0; i < length; i++) {
             gridValues[offsetY][offsetX + i] = type;
         }
-        var name = new Ship(length, {x: offsetX, y:offsetY}, {x: offsetX + length - 1, y:offsetY}, true, 0, type);
+        var name = new Ship(length, { x: offsetX, y: offsetY }, { x: offsetX + length - 1, y: offsetY }, true, 0, type);
         ships.push(name);
     }
 
@@ -107,8 +106,8 @@ function placeRandomShip(length, isVertical, offsetX, offsetY, type) {
 // if random = 0 only execute updateBoard function
 function randomizer(random) {
     // clears grid and places 5 new ships
-    if (random){
-        for(i = 0; i < 10; i++){
+    if (random) {
+        for (i = 0; i < 10; i++) {
             gridValues[i] = 0;
         }
         reset();
@@ -119,31 +118,31 @@ function randomizer(random) {
         placeRandomShip(2, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 7);
     }
     // call the moveShip function with the correct parameters
-    var gameBoard = clickableGrid(function(row, col){
+    var gameBoard = clickableGrid(function (row, col) {
         console.log(" ");
         console.log(" ");
-        console.log("You clicked on coordinate: (" + row +"," + col + ")");
+        console.log("You clicked on coordinate: (" + row + "," + col + ")");
         // console.log("publicState before checking which ship was clicked: ", publicState)
         // if (!publicState){
-            var temp = 0;
-        ships.forEach(function(ship){
-            ship.occupies.forEach(function(element) {
-                if (element.x == col && element.y == row){
+        var temp = 0;
+        ships.forEach(function (ship) {
+            ship.occupies.forEach(function (element) {
+                if (element.x == col && element.y == row) {
                     clickedShip = ship;
                     temp = 1;
                     console.log("the clicked ship: ", clickedShip);
                 }
             });
         });
-    //  }
-         // if no ship was clicked call moveShip with publicState 1 and a next coordinate (the coordinate that was clicked)
-         if(!temp){
+        //  }
+        // if no ship was clicked call moveShip with publicState 1 and a next coordinate (the coordinate that was clicked)
+        if (!temp) {
             next = [];
             next[0] = row;
             next[1] = col;
             publicState = 0;
             moveShip(clickedShip, 1, 0, next);
-        } 
+        }
         // if a Ship was clicked call moveShip with that ship, publicState 0, a current/start coordinate
         if (temp) {
             current = [];
@@ -153,7 +152,7 @@ function randomizer(random) {
             moveShip(clickedShip, 0, current, 0);
             // return;
         }
-       
+
     }, "startgrid");
 }
 
@@ -164,15 +163,18 @@ randomizer(1);
 // if called with localState = 0, sets clickedShip, state, currentCoord to right values and updates state to 1;
 function moveShip(ship, localState, current, next) {
     console.log("moveShip was called with state: " + localState);
-    if (!localState){
+    // if a ship was clicked localShip is updated to that ship, currentCoord is updated to the clicked coordinate and publicState = 1; 
+    if (!localState) {
         localShip = ship;
         currentCoord = current;
         publicState = 1;
         return;
     }
+
+    // if no ship was clicked the previously clicked ship is moved to that position
     if (localState) {
-    nextCoord = next
-    publicState = 0;
+        nextCoord = next
+        publicState = 0;
     }
     console.log("current coordinate:", currentCoord);
     console.log("next coordinate", nextCoord);
@@ -196,9 +198,9 @@ function moveShip(ship, localState, current, next) {
             if (gridValues[i][ship.getStartX() + dx] == ship.getType()) {
 
             } else if (gridValues[i][ship.getStartX() + dx] != 0) {
-                    console.log("You can't place a ship there");
-                    return; 
-            } else {}
+                console.log("You can't place a ship there");
+                return;
+            } else { }
         }
     } else {
         //if the ship's startX or endX is out of bounds, inform the player that a ship can't be placed here.
@@ -212,9 +214,9 @@ function moveShip(ship, localState, current, next) {
             if (gridValues[ship.getStartY() + dy][i] == ship.getType()) {
 
             } else if (gridValues[ship.getStartY() + dy][i] != 0) {
-                    console.log("You can't place a ship there");
-                    return; 
-            } else {}
+                console.log("You can't place a ship there");
+                return;
+            } else { }
         }
     }
 
@@ -239,14 +241,14 @@ function moveShip(ship, localState, current, next) {
     }
     //update the grid to show the change to the user
     randomizer(0);
- 
+
     publicState = 0;
     currentCoord = undefined;
     nextCoord = undefined;
 }
 
 // rotates the selected/clicked ship clockwise
-function rotateShip(){
+function rotateShip() {
     ship = clickedShip;
     // starting coordinate stays in place
     var startY = ship.getStartY();
@@ -257,18 +259,12 @@ function rotateShip(){
     console.log("start(x,y): (", startX + ", " + startY + ")");
     console.log("end(x,y): (", endX + ", " + endY + ")");
 
-    
-    
     // if ship is vertical
-    if (endX == startX){
-        // console.log("ship is vertical");
-        // y values have to be set to startY
-        // console.log(endY, startY);
+    if (endX == startX) {
         // if startcoord is highest coordinate
         if (startY < endY) {
             endX = startX - 1 - ship.length;
-            // console.log("Clicked ship is vertical and downward");
-        // if startcoord is lowest coordinate
+            // if startcoord is lowest coordinate
         }
         if (startY > endY) {
             endX = startX - 1 + ship.length;
@@ -279,21 +275,21 @@ function rotateShip(){
         return;
     }
     // if ship is horizontal
-    if (endY == startY){
+    if (endY == startY) {
         // console.log("ship is horizontal");
         // if startCoord is leftmost coordinate
-        if (ship.getStartX() < endX){
+        if (ship.getStartX() < endX) {
             endY = startY - 1 + ship.length;
             // console.log("Clicked ship is horizontal and rightward");
-        // if startCoord is rightmost coordinate
+            // if startCoord is rightmost coordinate
         }
-        if (ship.getStartX() > endX){
+        if (ship.getStartX() > endX) {
             endY = startY - 1 - ship.length;
             // console.log("Clicked ship is horizontal and leftward");
         }
         endX = startX;
         updateGrid(ship, startX, startY, endX, endY);
-        return; 
+        return;
     }
     // //change the values in the 2d-array
     // if (startX == endX) {
@@ -306,7 +302,7 @@ function rotateShip(){
     //         gridValues[endY][i] = ship.getType();
     //     }
     // }
-              
+
     // }
     // ship.updateShipCoords(startX, startY, endX, endY);
     // console.log("start(x,y): (", startX + ", " + startY + ")");
@@ -315,7 +311,7 @@ function rotateShip(){
     // randomizer(0);
 }
 
-function updateGrid(ship, startX, startY, endX, endY){
+function updateGrid(ship, startX, startY, endX, endY) {
     console.log("new coordinates:");
     console.log("start(x,y): (", startX + ", " + startY + ")");
     console.log("end(x,y): (", endX + ", " + endY + ")");
@@ -339,10 +335,10 @@ function updateGrid(ship, startX, startY, endX, endY){
     return;
 }
 
-document.getElementById("readybutton").addEventListener("click", function() {
+document.getElementById("readybutton").addEventListener("click", function () {
     moveShip();
 });
-document.getElementById("startgrid").addEventListener("click", function(){
+document.getElementById("startgrid").addEventListener("click", function () {
     console.log("publicState after this click is: ", publicState);
 })
 
