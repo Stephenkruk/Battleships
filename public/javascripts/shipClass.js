@@ -12,7 +12,8 @@ class Ship {
         this.hits = hits;
         this.type = type;
         // makes an array of all occupied coordinates (hit, x, y)
-        this.occupies = [];
+        var occupies = [];
+        this.occupies = occupies;
 
         // if start and end x are equal only y values have to be "calculated"
         if (this.start.x == this.end.x) {
