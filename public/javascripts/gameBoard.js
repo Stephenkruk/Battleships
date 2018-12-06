@@ -113,7 +113,7 @@ function updateGrid(grid, gridValues){
     }
 }
 
-updateGrid(grid);
+updateGrid("yourgrid", grid);
 initOppGrid();
 
 function sendCoordinate(coord) {
