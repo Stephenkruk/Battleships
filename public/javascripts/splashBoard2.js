@@ -41,7 +41,7 @@ function clickableGrid(callback, typeGrid) {
             cell.addEventListener('click', (function (r, c) {
                 return function () {
                     callback(r, c);
-                }
+                }  
             })(r, c), false);
 
             cell.id = r + "," + c;
