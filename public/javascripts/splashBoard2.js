@@ -304,8 +304,8 @@ function updateGrid(ship, startX, startY, endX, endY) {
             gridValues[endY][i] = ship.getType();
         }
     }
-    console.log(gridValues);
-    console.log(ships);
+    console.log("updateGrid was called, updated grid: ", gridValues);
+    console.log("updateGrid was called, updated ships array", ships);
     // update grid to show change to the user
     randomizer(0);
     return;
