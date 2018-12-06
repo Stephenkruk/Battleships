@@ -214,7 +214,6 @@ function moveShip(ship, localState, current, next) {
 }
 
 // rotates the selected/clicked ship clockwise
-// UNFINISHED
 function rotateShip() {
     // ship to be rotated is last clicked ship
     ship = clickedShip;
@@ -255,6 +254,8 @@ function rotateShip() {
     }
 }
 
+// returns false if placement is not valid
+// returns true if placement is valid
 function checkPlacement(ship, startX, startY, endX, endY) {
     if (startX == endX) {
         // if the ship's startY or endY is out of bounds, inform the player that a ship can't be placed here.
