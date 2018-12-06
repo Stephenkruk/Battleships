@@ -5,6 +5,13 @@ body {
   margin: 0px;
 }
 
+.header-contents {
+  background-image: url("images/icon.png");
+  background-position: left center;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+}
+
 a {
   color: #00B7FF;
 }
@@ -42,6 +49,10 @@ table {
 
 .ship:hover {
   cursor: pointer;
+ /* background: blue; */
+  opacity: 0.5;
+  -webkit-filter: invert(100%);
+  filter: invert(85%);
 }
 
 .cell-carrier {
@@ -75,35 +86,32 @@ table {
 
 .logo {
   opacity: 0%;
+  float: left;
 }
 
-.readybutton {
+.button {
   background-color: #0A538F;
   border: 0px;
   color: white;
   padding: 20px 40px;
   text-align: center;
-  font-size: 50px;
+  font-size: 30px;
   cursor: pointer;
+}
+
+.readybutton {
+
 }
 
 .randombutton {
-  background-color: #0A538F;
-  color: white;
-  border: 0px;
-  padding: 15px 25px;
-  text-align: center;
-  font-size: 16px;
-  cursor: pointer;
 }
 
-/*
-.readybutton:hover {
-  background: rgba(0,0,0,0);
-	color: #3a7999;
+.button:hover {
+  background: white;
+	color: #0A538F;
 	box-shadow: inset 0 0 0 7px #3a7999;
 }
-*/
+
 
 .h1 {
   color: white;
@@ -117,6 +125,7 @@ table {
    color: white;
    font-size: 170%;
    text-align: right;
+   
 }
 
 .stat {
