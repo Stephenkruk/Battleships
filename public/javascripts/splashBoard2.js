@@ -41,7 +41,7 @@ function clickableGrid(callback, typeGrid) {
             cell.addEventListener('click', (function (r, c) {
                 return function () {
                     callback(r, c);
-                }  
+                }
             })(r, c), false);
 
             cell.id = r + "," + c;
@@ -183,7 +183,7 @@ function moveShip(ship, localState, current, next) {
     var endY = localShip.getEndY() + dy;
 
     // check if these are valid coordinates
-    if (!checkPlacement(ship, startX, startY, endX, endY)){
+    if (!checkPlacement(ship, startX, startY, endX, endY)) {
         return;
     }
     //reset old values of the ship to zero
@@ -248,7 +248,7 @@ function rotateShip() {
             console.log("end(x,y): (", endX + ", " + endY + ")");
             return;
         }
-        
+
         updateGrid(ship, startX, startY, endX, endY);
         return;
     }
@@ -260,7 +260,7 @@ function checkPlacement(ship, startX, startY, endX, endY) {
     if (startX == endX) {
         // if the ship's startY or endY is out of bounds, inform the player that a ship can't be placed here.
         // You don't need to test the x-values since a vertical ship can't be placed out of bounds in the x-axis
-        if (startY < 0 || endY> 9) {
+        if (startY < 0 || endY > 9) {
             console.log("You can't place a ship there");
             return false;
         }
@@ -273,7 +273,7 @@ function checkPlacement(ship, startX, startY, endX, endY) {
                 return false;
             }
         }
-        } else {
+    } else {
         //if the ship's startX or endX is out of bounds, inform the player that a ship can't be placed here.
         //You don't need to test the y-values since a horizontal ship can't be placed out of bounds in the y-axis
         if (startX < 0 || endX > 9) {
@@ -295,7 +295,7 @@ function checkPlacement(ship, startX, startY, endX, endY) {
 
 // function that updates the grid with the current occupies values of all ships in the ships array
 function updateGrid(ship, startX, startY, endX, endY) {
-    if (!checkPlacement(ship, startX, startY, endX, endY)){
+    if (!checkPlacement(ship, startX, startY, endX, endY)) {
         return;
     }
 
@@ -314,7 +314,7 @@ function updateGrid(ship, startX, startY, endX, endY) {
             gridValues[i][startX] = ship.getType();
 
         }
-        } else {
+    } else {
         for (var i = startX; i <= ship.getEndX(); i++) {
             gridValues[startY][i] = ship.getType();
         }

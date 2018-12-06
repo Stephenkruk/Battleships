@@ -18,7 +18,7 @@ update opp grid
 */
 
 var grid = [
-    [0, 1, 2, 3+5, 4+5, 5+5, 6+5, 7+5, 0, 0],
+    [0, 1, 2, 3 + 5, 4 + 5, 5 + 5, 6 + 5, 7 + 5, 0, 0],
     [0, 0, 3, 3, 3, 3, 3, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 5, 5, 5, 0],
@@ -55,7 +55,7 @@ function initOppGrid() {
             var td = document.createElement("td");
             tr.appendChild(td);
             td.id = i + "," + j;
-            td.onclick = function(event){
+            td.onclick = function (event) {
                 sendCoordinate(event.srcElement.id);
             };
             td.className = "cell";
@@ -63,7 +63,7 @@ function initOppGrid() {
     }
 }
 
-function updateGrid(grid, gridValues){
+function updateGrid(grid, gridValues) {
     var gameBoard = document.getElementById(grid);
 
     for (var i = 0; i < 10; i++) {
@@ -71,12 +71,12 @@ function updateGrid(grid, gridValues){
         gameBoard.appendChild(tr);
         tr.id = i;
 
-        for (var j = 0; j < 10; j++) {  
+        for (var j = 0; j < 10; j++) {
             var td = document.createElement("td");
             tr.appendChild(td);
             td.id = i + "," + j;
             //based on the values of the cell coordinate, give a class to the cell
-            if (gridValues[i][j] == 0){
+            if (gridValues[i][j] == 0) {
                 td.className = "cell";
             } else if (gridValues[i][j] == 1) {
                 td.className = "cell miss";
@@ -105,7 +105,7 @@ function updateGrid(grid, gridValues){
             }
 
             if (grid == "oppgrid" && gridValues[i][j] == 0) {
-                td.onclick = function(event){
+                td.onclick = function (event) {
                     sendCoordinate(event.srcElement.id);
                 };
             }
@@ -121,7 +121,7 @@ function sendCoordinate(coord) {
 }
 
 function recieveValue(gridValues, coordinate, value, isYourGrid) {
-    var coordinate = (coord).split(",").map(function(t){return parseInt(t)});
+    var coordinate = (coord).split(",").map(function (t) { return parseInt(t) });
 
     if (isYourGrid) {
         gridValues[coordinate[0]][coordinate[1]] = value;
