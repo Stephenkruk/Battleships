@@ -176,42 +176,16 @@ function moveShip(ship, localState, current, next) {
     // calculate the difference between currentCoord and nextCoord
     var dy = nextCoord[0] - currentCoord[0];
     var dx = nextCoord[1] - currentCoord[1];
+    // calculate new coordinates
+    var startX = localShip.getStartX() + dx;
+    var startY = localShip.getStartY() + dy;
+    var endX = localShip.getEndX() + dx;
+    var endY = localShip.getEndY() + dy;
 
-    // check if the new values are free for a ship to be placed on
-    if (localShip.getStartX() == localShip.getEndX()) {
-        // if the ship's startY or endY is out of bounds, inform the player that a ship can't be placed here.
-        // You don't need to test the x-values since a vertical ship can't be placed out of bounds in the x-axis
-        if (ship.getStartY() + dy < 0 || ship.getEndY() + dy > 9) {
-            console.log("You can't place a ship there");
-            return;
-        }
-        //check if all the values inbetween the start- and end-coordinate are free
-        for (var i = ship.getStartY() + dy; i <= ship.getEndY() + dy; i++) {
-            if (gridValues[i][ship.getStartX() + dx] == ship.getType()) {
-
-            } else if (gridValues[i][ship.getStartX() + dx] != 0) {
-                console.log("You can't place a ship there");
-                return;
-            } else { }
-        }
-    } else {
-        //if the ship's startX or endX is out of bounds, inform the player that a ship can't be placed here.
-        //You don't need to test the y-values since a horizontal ship can't be placed out of bounds in the y-axis
-        if (ship.getStartX() + dx < 0 || ship.getEndX() + dx > 9) {
-            console.log("You can't place a ship there");
-            return;
-        }
-        //check if all the values inbetween the start- and end-coordinate are free
-        for (var i = ship.getStartX() + dx; i <= ship.getEndX() + dx; i++) {
-            if (gridValues[ship.getStartY() + dy][i] == ship.getType()) {
-
-            } else if (gridValues[ship.getStartY() + dy][i] != 0) {
-                console.log("You can't place a ship there");
-                return;
-            } else { }
-        }
+    // check if these are valid coordinates
+    if (!checkPlacement(ship, startX, startY, endX, endY)){
+        return;
     }
-
     //reset old values of the ship to zero
     for (var i = 0; i < ship.getOccupies().length; i++) {
         gridValues[ship.getOccupiesY(i)][ship.getOccupiesX(i)] = 0;
@@ -281,15 +255,13 @@ function rotateShip() {
     }
 }
 
-// function that updates the grid with the current occupies values of all ships in the ships array
-function updateGrid(ship, startX, startY, endX, endY) {
-    // check if the new values are free for a ship to be placed on
+function checkPlacement(ship, startX, startY, endX, endY) {
     if (startX == endX) {
         // if the ship's startY or endY is out of bounds, inform the player that a ship can't be placed here.
         // You don't need to test the x-values since a vertical ship can't be placed out of bounds in the x-axis
         if (startY < 0 || endY> 9) {
             console.log("You can't place a ship there");
-            return;
+            return false;
         }
         //check if all the values inbetween the start- and end-coordinate are free
         for (var i = startY; i <= endY; i++) {
@@ -297,7 +269,7 @@ function updateGrid(ship, startX, startY, endX, endY) {
 
             } else if (gridValues[i][startX] != 0) {
                 console.log("You can't place a ship there");
-                return;
+                return false;
             }
         }
         } else {
@@ -305,7 +277,7 @@ function updateGrid(ship, startX, startY, endX, endY) {
         //You don't need to test the y-values since a horizontal ship can't be placed out of bounds in the y-axis
         if (startX < 0 || endX > 9) {
             console.log("You can't place a ship there");
-            return;
+            return false;
         }
         //check if all the values inbetween the start- and end-coordinate are free
         for (var i = startX; i <= endX; i++) {
@@ -313,9 +285,17 @@ function updateGrid(ship, startX, startY, endX, endY) {
 
             } else if (gridValues[startY][i] != 0) {
                 console.log("You can't place a ship there");
-                return;
-            } else { }
+                return false;
+            }
         }
+    }
+    return true;
+}
+
+// function that updates the grid with the current occupies values of all ships in the ships array
+function updateGrid(ship, startX, startY, endX, endY) {
+    if (!checkPlacement(ship, startX, startY, endX, endY)){
+        return;
     }
 
     //reset old values of the ship to zero
@@ -345,9 +325,5 @@ function updateGrid(ship, startX, startY, endX, endY) {
 document.getElementById("readybutton").addEventListener("click", function () {
     moveShip();
 });
-
-// document.getElementById("startgrid").addEventListener("click", function () {
-//     console.log("publicState after this click is: ", publicState);
-// });
 
 
