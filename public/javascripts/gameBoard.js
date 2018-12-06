@@ -1,4 +1,18 @@
 //hardcoded for testing purposes
+
+/*
+what needs to be passed between server and client
+
+server to client:
+the 2d-array
+a call to call messages or events (e.g. sound to blow up ships, saying its not your turn)
+
+client to server:
+a coordinate of opp grid
+exit button
+
+*/
+
 var grid = [
     [0, 1, 2, 3+5, 4+5, 5+5, 6+5, 7+5, 0, 0],
     [0, 0, 3, 3, 3, 3, 3, 0, 0, 0],
