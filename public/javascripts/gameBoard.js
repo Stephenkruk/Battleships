@@ -11,6 +11,10 @@ client to server:
 a coordinate of opp grid
 exit button
 
+client functions:
+recieve value
+recieve opp value
+update opp grid
 */
 
 var grid = [
@@ -26,8 +30,41 @@ var grid = [
     [0, 6, 0, 0, 0, 0, 0, 0, 0, 0],
 ]
 
-function updateGrid(typeGrid, gridValues){
-    var gameBoard = document.getElementById(typeGrid);
+var oppgrid = [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+]
+
+function initOppGrid() {
+    var gameBoard = document.getElementById("oppgrid");
+
+    for (var i = 0; i < 10; i++) {
+        var tr = document.createElement("tr")
+        gameBoard.appendChild(tr);
+
+        for (var j = 0; j < 10; j++) {
+
+            var td = document.createElement("td");
+            tr.appendChild(td);
+            td.id = i + "," + j;
+            td.onclick = function(event){
+                sendCoordinate(event.srcElement.id);
+            };
+            td.className = "cell";
+        }
+    }
+}
+
+function updateGrid(grid, gridValues){
+    var gameBoard = document.getElementById(grid);
 
     for (var i = 0; i < 10; i++) {
         var tr = document.createElement("tr");
@@ -66,8 +103,31 @@ function updateGrid(typeGrid, gridValues){
             } else if (gridValues[i][j] == 12) {
                 td.className = "cell ship cell-destroyer hit";
             }
+
+            if (grid == "oppgrid" && gridValues[i][j] == 0) {
+                td.onclick = function(event){
+                    sendCoordinate(event.srcElement.id);
+                };
+            }
         }
     }
 }
 
-updateGrid("yourgrid", grid);
+updateGrid(grid);
+initOppGrid();
+
+function sendCoordinate(coord) {
+    console.log("you pressed " + coord);
+}
+
+function recieveValue(gridValues, coordinate, value, isYourGrid) {
+    var coordinate = (coord).split(",").map(function(t){return parseInt(t)});
+
+    if (isYourGrid) {
+        gridValues[coordinate[0]][coordinate[1]] = value;
+        updateGrid("yourgrid", gridValues);
+    } else {
+        gridValues[coordinate[0]][coordinate[1]] = values;
+        updateGrid("oppgrid", gridValues)
+    }
+}
