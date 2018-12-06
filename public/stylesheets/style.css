@@ -21,6 +21,13 @@ body {
   margin-top: 5px;
 }
 
+.gridname {
+  border-spacing: 0px;
+  margin-top: 10px;
+  margin-left: 20%;
+  color: white;
+}
+
 /* 
 .header-contents {
   background-image: url("images/icon.png");
@@ -33,17 +40,13 @@ a {
   color: #00B7FF;
 }
 
-.grid {  border: 1px solid black;
+.grid {  
+  border: 1px solid black;
   padding: 0px;
   background: #8DBDE4;
   opacity: 0.9;
-  position: relative;
-}
-
-.grid td {
-  width: 30px;
-  height: 30px;
-  border:1px solid black;
+  size: 50%
+  
 }
 
 table {
@@ -55,15 +58,11 @@ table {
  .cell {
   border: 1px solid black;
   padding: 0px;
-  height: 20px;
-  width: 20px;
+  height: 35px;
+  width: 35px;
   background: #8DBDE4;
   opacity: 0.95;
 } 
-
-.grid td.clicked {
-  background-color:white;
-}
 
 .ship:hover {
   cursor: pointer;
@@ -119,7 +118,13 @@ table {
 }
 
 #readybutton {
+  position: absolute;
+  bottom: 40%;
+  right: 20%;
+  float: right;
   font-size: 50px;
+  margin-top: 0;
+  margin-right: 0;
 }
 
 #readybutton:hover {
@@ -134,16 +139,24 @@ table {
 	box-shadow: inset 0 0 0 7px #3a7999;
 }
 
+.stat-container {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
+
 .statistics {
    color: white;
-   font-size: 170%;
+   font-size: 35px;
    text-align: right;
-   
+   font-family: "courier new";
+   font-weight: bold;
+   margin-bottom: 0px;
 }
 
 .stat {
   color: white;
-  font-size: 150%;
+  font-size: 20px;
   text-align: right;
   font-family: "courier new";
 }
