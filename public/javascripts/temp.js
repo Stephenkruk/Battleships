@@ -97,7 +97,6 @@ function updateGrid() {
             next = [];
             next[0] = row;
             next[1] = col;
-            publicState = 0;
             moveShip(clickedShip, 1, 0, next);
         }
         // if a Ship was clicked call moveShip with that ship, publicState 0, a current/start coordinate
@@ -105,7 +104,6 @@ function updateGrid() {
             current = [];
             current[0] = row;
             current[1] = col;
-            publicState = 1;
             moveShip(clickedShip, 0, current, 0);
             // return;
         }
