@@ -21,7 +21,8 @@ function resetArray() {
         }
     }
     //empties the ships array
-    ships.splice(0, ships.length)
+    ships.splice(0, ships.length);
+    clickedShip = null;
     currentCoord = null;
     nextCoord = null;
 }
@@ -44,30 +45,60 @@ function updateGrid() {
             var cell = tr.appendChild(document.createElement("td"));
             cell.id = r + "," + c;
 
-            cell.onclick = function (event) {
-                if (gridValues[r][c] != 0) {
-                    clickedShip = ships[gridValues[r][c] - 3];
-                    console.log("Current coordinate is: " + currentCoord);
-                    console.log("Next coordinate is: " + nextCoord);
-                }
-                console.log(event.srcElement.id);
-                preMoveShip(event.srcElement.id);
-            };
-
             // based on the values of the cell coordinate, give a class to the cell
             // 0 = empty field, 1 = miss, 2 = hit, 3 = carrier, 4 = battleship, 5 = cruiser, 6 = submarine, 7 = destroyer
             if (gridValues[r][c] == 0) {
                 cell.className = "cell";
+                cell.onclick = function (event) {
+                    preMoveShip(event.srcElement.id);
+                    console.log("Current coordinate is: " + currentCoord);
+                    console.log("Next coordinate is: " + nextCoord);
+                };
             } else if (gridValues[r][c] == 3) {
                 cell.className = "cell ship cell-carrier";
+                cell.onclick = function () {
+                    clickedShip = ships[0];
+                    console.log(clickedShip);
+                    preMoveShip(event.srcElement.id);
+                    console.log("Current coordinate is: " + currentCoord);
+                    console.log("Next coordinate is: " + nextCoord);
+                };
             } else if (gridValues[r][c] == 4) {
                 cell.className = "cell ship cell-battleship";
+                cell.onclick = function () {
+                    clickedShip = ships[1];
+                    console.log("battleship");
+                    preMoveShip(event.srcElement.id);
+                    console.log("Current coordinate is: " + currentCoord);
+                    console.log("Next coordinate is: " + nextCoord);
+                };
             } else if (gridValues[r][c] == 5) {
                 cell.className = "cell ship cell-cruiser";
+                cell.onclick = function () {
+                    clickedShip = ships[2];
+                    console.log("cruiser");
+                    preMoveShip(event.srcElement.id);
+                    console.log("Current coordinate is: " + currentCoord);
+                    console.log("Next coordinate is: " + nextCoord);
+                };
             } else if (gridValues[r][c] == 6) {
                 cell.className = "cell ship cell-submarine";
+                cell.onclick = function () {
+                    clickedShip = ships[3];
+                    console.log("submarine");
+                    preMoveShip(event.srcElement.id);
+                    console.log("Current coordinate is: " + currentCoord);
+                    console.log("Next coordinate is: " + nextCoord);
+                };
             } else {
                 cell.className = "cell ship cell-destroyer";
+                cell.onclick = function () {
+                    clickedShip = ships[4];
+                    console.log("destroyer");
+                    preMoveShip(event.srcElement.id);
+                    console.log("Current coordinate is: " + currentCoord);
+                    console.log("Next coordinate is: " + nextCoord);
+                };
             }
         }
     }
@@ -150,7 +181,7 @@ function preMoveShip(coord) {
     if (currentCoord != null) {
         if (gridValues[coordinate[0]][coordinate[1]] == 0 || gridValues[coordinate[0]][coordinate[1]] == clickedShip.type) {
             nextCoord = coordinate;
-            moveShip(clickedShip);
+            moveShip(clickedShip, currentCoord, nextCoord);
             currentCoord = null;
             nextCoord = null;
         } else {
@@ -160,6 +191,7 @@ function preMoveShip(coord) {
         //code setting a new coordinate
         if (gridValues[coordinate[0]][coordinate[0]] == 0) {
             console.log("an empty coord is clicked");
+            nextCoord = null;
         } else {
             currentCoord = coordinate;
             console.log("a new ship coord is clicked");
@@ -171,10 +203,10 @@ function preMoveShip(coord) {
 
 // if called with localState = 1, moves the ship from current to next coordinate
 // if called with localState = 0, sets clickedShip, state, currentCoord to right values and updates state to 1;
-function moveShip(ship) {
+function moveShip(ship, current, next) {
     // calculate the difference between currentCoord and nextCoord
-    var dy = nextCoord[0] - currentCoord[0];
-    var dx = nextCoord[1] - currentCoord[1];
+    var dy = next[0] - current[0];
+    var dx = next[1] - current[1];
     // calculate new coordinates
     var startX = ship.getStartX() + dx;
     var startY = ship.getStartY() + dy;
