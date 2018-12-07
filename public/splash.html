@@ -15,6 +15,7 @@
         <h1 class="h1">BATTLESHIPS</h1>
         <div class = "notification notification-box">
             <div class = "notification-message"></div>
+            <p id="notification">Place the ships where you want them</p>
         </div>
     </header>
 
@@ -23,12 +24,9 @@
         <button class="button" id="rotatebutton" onclick="rotateShip()">Rotate Ship</button>
         <button class="button" id="randombutton" onclick="randomize()">Randomize ship placement</button>
         <div>
-            <table id="startgrid">
+            <table id="startgrid" class="grid">
             </table>
-            <!--
-            <p class="subgridtext">Make your Grid</p>
-            -->
-            <p class="gridname">Your grid</p>
+            <p class="gridname"></p>
         </div>
         <div class="stat-container">
             <p class="statistics">Statistics </p>
@@ -41,7 +39,7 @@
     <footer>
     </footer>
     <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-    <script src="javascripts/shipClass.js"></script>"
+    <script src="javascripts/shipClass.js"></script>
     <script src="javascripts/splashBoard.js"></script>
 </body>
 </html>
