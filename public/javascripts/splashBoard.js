@@ -24,7 +24,7 @@ function resetArray() {
 }
 
 // makes a clickable grid     
-function clickableGrid() {
+function updateGrid() {
     // removes existing grid (so it can be replaced)
     var element;
     element = document.getElementById("startgrid");
@@ -64,14 +64,16 @@ function clickableGrid() {
             }
             td.onclick = function (event) {
                 var temp = 0;
+                // turn the clicked coordinate into seperate row and col variables
                 var coordinate = (event.srcElement.id).split(",").map(function (t) { return parseInt(t) });
                 var row = coordinate[0];
                 var col = coordinate[1];
+                // check if a ship was clicked
                 ships.forEach(function (ship) {
                     ship.occupies.forEach(function (element) {
                         if (element.x == col && element.y == row) {
-                            if(clickedShip != undefined && clickedShip.getType()==ship.getType()){
-                                if (!temp && row != undefined && col !=undefined) {
+                            if (clickedShip != undefined && clickedShip.getType() == ship.getType()) {
+                                if (!temp && row != undefined && col != undefined) {
                                     next = [];
                                     next[0] = row;
                                     next[1] = col;
@@ -80,77 +82,33 @@ function clickableGrid() {
                                     return
                                 }
                             }
-                            clickedShip = ship;
-                            temp = 1;
-                        }
+                        
+                        clickedShip = ship;
+                        temp = 1;
+                    }
                     });
-                });
-                // if no ship was clicked call moveShip with publicState 1 and a next coordinate (the coordinate that was clicked)
-                if (!temp && row != undefined && col !=undefined) {
-                    next = [];
-                    next[0] = row;
-                    next[1] = col;
-                    console.log(next);
-                    moveShip(clickedShip, 1, 0, next);
-                }
-                // if a Ship was clicked call moveShip with that ship, publicState 0, a current/start coordinate
-                if (temp && row !=undefined && col != undefined) {
-                    current = [];
-                    current[0] = row;
-                    current[1] = col;
-                    moveShip(clickedShip, 0, current, 0);
-                }
+            });
+            // if no ship was clicked call moveShip with publicState 1 and a next coordinate (the coordinate that was clicked)
+            if (!temp && row != undefined && col != undefined) {
+                next = [];
+                next[0] = row;
+                next[1] = col;
+                console.log(next);
+                moveShip(clickedShip, 1, 0, next);
+            }
+            // if a Ship was clicked call moveShip with that ship, publicState 0, a current/start coordinate
+            if (temp && row != undefined && col != undefined) {
+                current = [];
+                current[0] = row;
+                current[1] = col;
+                moveShip(clickedShip, 0, current, 0);
             }
         }
     }
-    return grid;
+}
+return grid;
 }
 
-
-// function updateGrid(coordinate) {
-//     if(coordinate !=undefined){
-//     var row = coordinate[0];
-//     var col = coordinate[1];
-//     }
-
-//     // call the moveShip function with the correct parameters
-//     //var gameBoard = 
-//     // clickableGrid(function (row, col) {
-//         // console.log(" ");
-//         // console.log(" ");
-//         // console.log("You clicked on coordinate: (" + row + "," + col + ")");
-//         // console.log("publicState before checking which ship was clicked: ", publicState)
-//         // if (!publicState){
-//         // var temp = 0;
-//         // ships.forEach(function (ship) {
-//         //     ship.occupies.forEach(function (element) {
-//         //         if (element.x == col && element.y == row) {
-//         //             clickedShip = ship;
-//         //             temp = 1;
-//         //             // console.log("the clicked ship: ", clickedShip);
-//         //         }
-//         //     });
-//         // });
-//         //  }
-//         // if no ship was clicked call moveShip with publicState 1 and a next coordinate (the coordinate that was clicked)
-//         if (!temp) {
-//             next = [];
-//             next[0] = row;
-//             next[1] = col;
-//             publicState = 0;
-//             moveShip(clickedShip, 1, 0, next);
-//         }
-//         // if a Ship was clicked call moveShip with that ship, publicState 0, a current/start coordinate
-//         if (temp) {
-//             current = [];
-//             current[0] = row;
-//             current[1] = col;
-//             publicState = 1;
-//             moveShip(clickedShip, 0, current, 0);
-//             // return;
-//         }
-//     // });
-// }
 
 // Updates the gridArray with the current occupied values of the specified ship
 function updateShip(ship, startX, startY, endX, endY) {
@@ -239,7 +197,7 @@ function moveShip(ship, localState, current, next) {
         nextCoord = next
         publicState = 0;
     }
-    if (currentCoord == undefined){
+    if (currentCoord == undefined) {
         return;
     }
 
@@ -278,7 +236,7 @@ function moveShip(ship, localState, current, next) {
         }
     }
     //update the grid to show the change to the user
-    clickableGrid();
+    updateGrid();
 
     //reset the values of the coordinates and the public state
     publicState = 0;
@@ -311,7 +269,7 @@ function rotateShip() {
             return;
         }
         updateShip(ship, startX, startY, endX, endY);
-        clickableGrid();
+        updateGrid();
 
     } else {
         // if ship is horizontal WORKING
@@ -328,7 +286,7 @@ function rotateShip() {
             return;
         }
         updateShip(ship, startX, startY, endX, endY);
-        clickableGrid();
+        updateGrid();
     }
 }
 
@@ -376,7 +334,7 @@ function randomize() {
     placeRandomShip(3, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 5);
     placeRandomShip(3, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 6);
     placeRandomShip(2, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 7);
-    clickableGrid();
+    updateGrid();
 }
 
 // randomize the grid when the page is opened;
@@ -385,3 +343,17 @@ randomize();
 function sendCoordinate(coord) {
     console.log("you pressed " + coord);
 }
+
+document.getElementById("startgrid").addEventListener("click", function () {
+    console.log("updatenotifbar: ", clickedShip);
+    if (clickedShip == undefined) {
+        document.getElementById("notification").innerHTML = "No Ship selected bradaah";
+    }
+    if (clickedShip != undefined) {
+        var notifShip = [];
+        for (var i = 0; i < clickedShip.length; i++) {
+            notifShip[i] = clickedShip.type;
+        }
+        document.getElementById("notification").innerHTML = notifShip;
+    }
+});

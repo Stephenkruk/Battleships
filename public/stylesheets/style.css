@@ -8,8 +8,24 @@ body {
   width: 20%;
   margin-top: 0;
 }
+
 .left {float: left; }
 .right {float: right; }
+
+.notification {
+  width: 300px;
+  margin-left: 10%;
+  background: lightblue;
+  height: 30px;
+  float: left;
+}
+
+#notification {
+  font-family: 'Courier New', Courier, monospace;
+  /* text-align: middle; */
+  color: white;
+  font-size: 18px;
+}
 
 .h1 {
   vertical-align: middle;
