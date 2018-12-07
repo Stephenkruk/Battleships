@@ -33,7 +33,6 @@ function updateGrid() {
     }
 
     var grid = document.getElementById("startgrid");
-    grid.className = 'grid';
 
     // create a new table
     var gameBoard = document.getElementById("startgrid");
@@ -347,7 +346,7 @@ function sendCoordinate(coord) {
 document.getElementById("startgrid").addEventListener("click", function () {
     console.log("updatenotifbar: ", clickedShip);
     if (clickedShip == undefined) {
-        document.getElementById("notification").innerHTML = "No Ship selected bradaah";
+        document.getElementById("notification").innerHTML = "Select a ship you want to move or rotate";
     }
     if (clickedShip != undefined) {
         var notifShip = [];
