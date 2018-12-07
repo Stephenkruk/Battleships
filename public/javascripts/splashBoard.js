@@ -3,7 +3,6 @@ var ships = [];
 var clickedShip;
 var currentCoord;
 var nextCoord;
-var temp;
 
 /*
 Contains all functions that update either the grid or the gridArray
@@ -39,100 +38,119 @@ function clickableGrid() {
     // create a new table
     var gameBoard = document.getElementById("startgrid");
 
-    for (var r = 0; r < 10; r++) {
-        var tr = document.createElement("tr")
+    // initialize grid values
+    for (var i = 0; i < 10; i++) {
+        var tr = document.createElement("tr");
         gameBoard.appendChild(tr);
+        tr.id = i;
 
-        for (var c = 0; c < 10; c++) {
-
+        for (var j = 0; j < 10; j++) {
             var td = document.createElement("td");
             tr.appendChild(td);
-            td.id =  r + "," + c;
-            td.onclick = function (event) {
-                console.log(event.srcElement);
-                sendCoordinate(event.srcElement.id);
-                var coordinate = (event.srcElement.id).split(",").map(function (t) { return parseInt(t) });
-                console.log(coordinate);
-                temp = 0;
-                ships.forEach(function (ship) {
-                    ship.occupies.forEach(function (element) {
-                        if (element.x == coordinate[0] && element.y == coordinate[1]) {
-                            clickedShip = ship;
-                            console.log("ship that was clicked: ", clickedShip);
-                            temp = 1;
-                            updateGrid(coordinate);
-                            // console.log("the clicked ship: ", clickedShip);
-                        }
-                    });
-                });
-            };
-            td.className = "cell";
+            td.id = i + "," + j;
 
-            // cell.id = r + "," + c;
-            // based on the values of the cell coordinate, give a class to the cell
-            // 0 = empty field, 1 = miss, 2 = hit, 3 = carrier, 4 = battleship, 5 = cruiser, 6 = submarine, 7 = destroyer
-            if (gridValues[r][c] == 0) {
+            if (gridValues[i][j] == 0) {
                 td.className = "cell";
-            } else if (gridValues[r][c] == 3) {
+            } else if (gridValues[i][j] == 3) {
                 td.className = "cell ship cell-carrier";
-            } else if (gridValues[r][c] == 4) {
+            } else if (gridValues[i][j] == 4) {
                 td.className = "cell ship cell-battleship";
-            } else if (gridValues[r][c] == 5) {
+            } else if (gridValues[i][j] == 5) {
                 td.className = "cell ship cell-cruiser";
-            } else if (gridValues[r][c] == 6) {
+            } else if (gridValues[i][j] == 6) {
                 td.className = "cell ship cell-submarine";
             } else {
                 td.className = "cell ship cell-destroyer";
+            }
+            td.onclick = function (event) {
+                var temp = 0;
+                var coordinate = (event.srcElement.id).split(",").map(function (t) { return parseInt(t) });
+                var row = coordinate[0];
+                var col = coordinate[1];
+                ships.forEach(function (ship) {
+                    ship.occupies.forEach(function (element) {
+                        if (element.x == col && element.y == row) {
+                            if(clickedShip != undefined && clickedShip.getType()==ship.getType()){
+                                if (!temp && row != undefined && col !=undefined) {
+                                    next = [];
+                                    next[0] = row;
+                                    next[1] = col;
+                                    temp = 0;
+                                    moveShip(clickedShip, 1, 0, next);
+                                    return
+                                }
+                            }
+                            clickedShip = ship;
+                            temp = 1;
+                        }
+                    });
+                });
+                // if no ship was clicked call moveShip with publicState 1 and a next coordinate (the coordinate that was clicked)
+                if (!temp && row != undefined && col !=undefined) {
+                    next = [];
+                    next[0] = row;
+                    next[1] = col;
+                    console.log(next);
+                    moveShip(clickedShip, 1, 0, next);
+                }
+                // if a Ship was clicked call moveShip with that ship, publicState 0, a current/start coordinate
+                if (temp && row !=undefined && col != undefined) {
+                    current = [];
+                    current[0] = row;
+                    current[1] = col;
+                    moveShip(clickedShip, 0, current, 0);
+                }
             }
         }
     }
     return grid;
 }
 
-function updateGrid(coordinate) {
-    if(coordinate !=undefined){
-    var row = coordinate[0];
-    var col = coordinate[1];
-    }
 
-    // call the moveShip function with the correct parameters
-    //var gameBoard = 
-    // clickableGrid(function (row, col) {
-        // console.log(" ");
-        // console.log(" ");
-        // console.log("You clicked on coordinate: (" + row + "," + col + ")");
-        // console.log("publicState before checking which ship was clicked: ", publicState)
-        // if (!publicState){
-        // var temp = 0;
-        // ships.forEach(function (ship) {
-        //     ship.occupies.forEach(function (element) {
-        //         if (element.x == col && element.y == row) {
-        //             clickedShip = ship;
-        //             temp = 1;
-        //             // console.log("the clicked ship: ", clickedShip);
-        //         }
-        //     });
-        // });
-        //  }
-        // if no ship was clicked call moveShip with publicState 1 and a next coordinate (the coordinate that was clicked)
-        if (!temp) {
-            next = [];
-            next[0] = row;
-            next[1] = col;
-            publicState = 0;
-            moveShip(clickedShip, 1, 0, next);
-        }
-        // if a Ship was clicked call moveShip with that ship, publicState 0, a current/start coordinate
-        if (temp) {
-            current = [];
-            current[0] = row;
-            current[1] = col;
-            publicState = 1;
-            moveShip(clickedShip, 0, current, 0);
-            // return;
-        }
-    // });
-}
+// function updateGrid(coordinate) {
+//     if(coordinate !=undefined){
+//     var row = coordinate[0];
+//     var col = coordinate[1];
+//     }
+
+//     // call the moveShip function with the correct parameters
+//     //var gameBoard = 
+//     // clickableGrid(function (row, col) {
+//         // console.log(" ");
+//         // console.log(" ");
+//         // console.log("You clicked on coordinate: (" + row + "," + col + ")");
+//         // console.log("publicState before checking which ship was clicked: ", publicState)
+//         // if (!publicState){
+//         // var temp = 0;
+//         // ships.forEach(function (ship) {
+//         //     ship.occupies.forEach(function (element) {
+//         //         if (element.x == col && element.y == row) {
+//         //             clickedShip = ship;
+//         //             temp = 1;
+//         //             // console.log("the clicked ship: ", clickedShip);
+//         //         }
+//         //     });
+//         // });
+//         //  }
+//         // if no ship was clicked call moveShip with publicState 1 and a next coordinate (the coordinate that was clicked)
+//         if (!temp) {
+//             next = [];
+//             next[0] = row;
+//             next[1] = col;
+//             publicState = 0;
+//             moveShip(clickedShip, 1, 0, next);
+//         }
+//         // if a Ship was clicked call moveShip with that ship, publicState 0, a current/start coordinate
+//         if (temp) {
+//             current = [];
+//             current[0] = row;
+//             current[1] = col;
+//             publicState = 1;
+//             moveShip(clickedShip, 0, current, 0);
+//             // return;
+//         }
+//     // });
+// }
 
 // Updates the gridArray with the current occupied values of the specified ship
 function updateShip(ship, startX, startY, endX, endY) {
@@ -176,7 +194,7 @@ function checkPlacement(ship, startX, startY, endX, endY) {
         for (var i = startY; i <= endY; i++) {
             if (gridValues[i][startX] == ship.getType()) {
 
-            } else if (gridValues[i][startX] != 0) {
+            } else if (gridValues[i][startX] != 0 && gridValues[i][startX] != ship.getType()) {
                 console.log("You can't place a ship there");
                 return false;
             }
@@ -192,7 +210,7 @@ function checkPlacement(ship, startX, startY, endX, endY) {
         for (var i = startX; i <= endX; i++) {
             if (gridValues[startY][i] == ship.getType()) {
 
-            } else if (gridValues[startY][i] != 0) {
+            } else if (gridValues[startY][i] != 0 && gridValues[startY][i] != ship.getType()) {
                 console.log("You can't place a ship there");
                 return false;
             }
@@ -221,8 +239,12 @@ function moveShip(ship, localState, current, next) {
         nextCoord = next
         publicState = 0;
     }
+    if (currentCoord == undefined){
+        return;
+    }
 
     // calculate the difference between currentCoord and nextCoord
+    console.log("next, current in moveShip", nextCoord, currentCoord);
     var dy = nextCoord[0] - currentCoord[0];
     var dx = nextCoord[1] - currentCoord[1];
     // calculate new coordinates
@@ -262,6 +284,9 @@ function moveShip(ship, localState, current, next) {
     publicState = 0;
     currentCoord = undefined;
     nextCoord = undefined;
+    clickedShip = undefined;
+    row = undefined;
+    col = undefined;
 }
 
 // rotates the selected/clicked ship clockwise
@@ -289,7 +314,7 @@ function rotateShip() {
         clickableGrid();
 
     } else {
-    // if ship is horizontal WORKING
+        // if ship is horizontal WORKING
         newStartY = startY - 1 + length;
         endY = newStartY;
         endX = startX;
