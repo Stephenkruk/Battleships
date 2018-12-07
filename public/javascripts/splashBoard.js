@@ -186,7 +186,6 @@ Contains all functions that move ships around the grid
 // if called with localState = 1, moves the ship from current to next coordinate
 // if called with localState = 0, sets clickedShip, state, currentCoord to right values and updates state to 1;
 function moveShip(ship, localState, current, next) {
-    // console.log("moveShip was called with state: " + localState);
     // if a ship was clicked localShip is updated to that ship, currentCoord is updated to the clicked coordinate and publicState = 1; 
     if (!localState) {
         localShip = ship;
