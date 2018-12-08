@@ -38,13 +38,13 @@ game.prototype.addPlayer = function(player) {
     if (this.player1 == null) {
         this.player1 = player;
         this.gameState = "1 JOINT";
-        console.log("player 1 is " + player);
+        //console.log("player 1 is " + player);
         return "1";
     }
     else {
         this.player2 = player;
         this.gameState = "2 JOINT";
-        console.log("player 2 is " + player);
+        //console.log("player 2 is " + player);
         return "2";
     }
 }

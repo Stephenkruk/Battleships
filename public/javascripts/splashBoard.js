@@ -342,6 +342,8 @@ function randomize() {
     placeRandomShip(3, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 6);
     placeRandomShip(2, Math.random() >= 0.5, Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), 7);
     updateGrid();
+    console.log(gridValues);
+    console.log(ships);
 }
 
 // randomize the grid when the page is opened;
@@ -366,5 +368,10 @@ document.getElementById("startgrid").addEventListener("click", function () {
 });
 
 function toGame() {
+    var socket = new WebSocket("ws://localhost:3000");
+    socket.onopen = function() {
+        socket.send(gridValues);
+        socket.send(ships);
+    }
     window.location.replace("game.html");
 }
