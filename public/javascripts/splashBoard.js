@@ -356,3 +356,8 @@ document.getElementById("startgrid").addEventListener("click", function () {
         document.getElementById("notification").innerHTML = notifShip;
     }
 });
+
+function toGame() {
+    var socket = new WebSocket("ws://localhost:3000");
+    window.location.replace("game.html");
+}

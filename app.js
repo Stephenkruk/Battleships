@@ -3,8 +3,11 @@ var http = require("http");
 var websocket = require("ws");
 
 var indexRouter = require("./routes/index");
+var messages = require("./public/javascripts/messages");
 
-var port = 3000;
+var gameStatus = require("./stats");
+var Game = require("./game");
+
 var app = express();
 
 app.get("/play", indexRouter);
@@ -16,9 +19,19 @@ app.get("/", (req, res) => {
 app.use(express.static(__dirname + "/public"));
 var server = http.createServer(app);
 
-const wss = new WebSocket.Server({ server });
+const wss = new websocket.Server({ server });
+
+var websockets = {};
+
+var currentGame = new Game(0);
+var connectionID = 0;
 
 wss.on("connection", function() {
 
+    let con = ws; 
+    con.id = connectionID++;
+    let playerType = currentGame.addPlayer(con);
+    websockets[con.id] = currentGame;
+    
 });
-server.listen(port);
+server.listen(3000);
