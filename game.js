@@ -1,4 +1,4 @@
-function game(id) {
+var game = function(id) {
     this.player1 = null;
     this.player2 = null;
     this.id = id;
@@ -11,7 +11,7 @@ function game(id) {
     this.gameState = "0 JOINT";
 }
 
-function setGrid(grid, ships, isPlayer1) {
+game.prototype.setGrid = function(grid, ships, isPlayer1) {
     if (isPlayer1) {
         this.grid1 = grid;
         this.ship1 = ships;
@@ -21,7 +21,7 @@ function setGrid(grid, ships, isPlayer1) {
     }
 }
 
-function setgridValues(r, c, value, isGrid1) {
+game.prototype.setGridValues = function(r, c, value, isGrid1) {
     if (isGrid1) {
         this.grid1[r][c] = value;
     } else {
@@ -29,11 +29,11 @@ function setgridValues(r, c, value, isGrid1) {
     }
 }
 
-function hasTwoConnectedPlayers() {
+game.prototype.hasTwoConnectedPlayers = function() {
     return (this.gameState == "2 JOINT");
 }
 
-function addPlayer(player) {
+game.prototype.addPlayer = function(player) {
 
     if (this.player1 == null) {
         this.player1 = player;

@@ -4,6 +4,14 @@ var clickedShip;
 var currentCoord;
 var nextCoord;
 
+function getGridValues() {
+    return gridValues;
+}
+
+function getShips() {
+    return ships;
+}
+
 /*
 Contains all functions that update either the grid or the gridArray
 */
@@ -358,6 +366,5 @@ document.getElementById("startgrid").addEventListener("click", function () {
 });
 
 function toGame() {
-    var socket = new WebSocket("ws://localhost:3000");
     window.location.replace("game.html");
 }
