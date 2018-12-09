@@ -371,3 +371,11 @@ document.getElementById("startgrid").addEventListener("click", function () {
         document.getElementById("notification").innerHTML = notifShip;
     }
 });
+
+function toGame() {
+    var tempGrid = JSON.stringify(gridValues);
+    localStorage.setItem("storageGrid", tempGrid);
+    var tempShips = JSON.stringify(ships);
+    localStorage.setItem("storageShips", tempShips);
+    window.location.replace("game.html");
+}

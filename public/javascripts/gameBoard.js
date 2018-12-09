@@ -14,33 +14,31 @@ recieve value
 recieve opp value
 update opp grid
 */
+var storedGrid = localStorage.getItem("storageGrid");
+var storedShips = localStorage.getItem("storageShips");
+var tempGrid
 var identifier;
 var isData = false;
+var socket = new WebSocket("ws://localhost:3000");
 
-var grid;
-
-var oppgrid = [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-]
+socket.onopen = function() {
+    socket.send(storedGrid);
+    socket.send(storedShips);
+}
 
 socket.onmessage = function(data) {
     if (isData) {
         //call all functions
         if (identifier == "updateOwnGrid") {
-            updateGrid("yourgrid", data);
+            tempGrid = JSON.parse(data.data);
+            updateGrid("yourgrid", tempGrid);
         } else if (identifier == "updateOppGrid") {
-            updateGrid("oppgrid", data);
+            tempGrid = JSON.parse(data.data);
+            updateGrid("oppgrid", tempGrid);
+        } else if (identifier == "initOppGrid") {
+            initOppGrid();
         } else if (identifier == "turnmessage") {
-            turn(data);
+            turn(data.data);
         } else {
 
         }
@@ -48,7 +46,7 @@ socket.onmessage = function(data) {
         isData = false;
     }
 
-    identifier = data;
+    identifier = data.data;
     isData = true;
 }
 
