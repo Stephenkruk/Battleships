@@ -60,5 +60,84 @@ wss.on("connection", function connection(ws) {
             }
         }
     });
+
+    currentGame.getPlayer(1).on("message", function incoming(data) {
+        if(currentGame.isPlayer1Turn) {
+            var coordinate = (data).split(",").map(function (t) { return parseInt(t) });
+            var y = coordinate[0];
+            var x = coordinate[1];
+
+            if (currentGame.p2OwnGrid[y][x] == 0) {
+                currentGame.setGridValuesPlayer1(y, x, 1, false);
+                currentGame.setGridValuesPlayer2(y, x, 1, true);
+                currentGame.isPlayer1Turn = false;
+
+                currentGame.player1.send("updateOppGrid");
+                currentGame.player1.send(currentGame.p1OppGrid);
+                currentGame.player1.send("turnmessage");
+                currentGame.player1.send(false);                
+                currentGame.player2.send("updateOwnGrid");
+                currentGame.player2.send(currentGame.p2OwnGrid);
+                currentGame.player2.send("turnmessage");
+                currentGame.player2.send(true); 
+
+            } else if (currentGame.p2OwnGrid[y][x] >= 3 || currentGame.p2OwnGrid[y][x] <= 7) {
+                currentGame.setGridValuesPlayer1(y, x, currentGame.p2OwnGrid[y][x] + 5, false);
+                currentGame.setGridValuesPlayer2(y, x, currentGame.p2OwnGrid[y][x] + 5, true);
+                currentGame.isPlayer1Turn = true;
+
+                currentGame.player1.send("updateOppGrid");
+                currentGame.player1.send(currentGame.p1OppGrid);
+                currentGame.player2.send("updateOwnGrid");
+                currentGame.player2.send(currentGame.p2OwnGrid);
+
+            } else {
+                console.log("That was not a valid move, please try again");
+                currentGame.isPlayer1Turn = true;
+            }
+        } else {
+            console.log("its not your turn");
+        }
+    });
+
+    currentGame.getPlayer(2).on("message", function incoming(data) {
+        if (!currentGame.isPlayer1Turn) {
+            var coordinate = (data).split(",").map(function (t) { return parseInt(t) });
+            var y = coordinate[0];
+            var x = coordinate[1];
+
+            if (currentGame.p1OwnGrid[y][x] == 0) {
+                currentGame.setGridValuesPlayer1(y, x, 1, true);
+                currentGame.setGridValuesPlayer2(y, x, 1, false);
+                currentGame.isPlayer1Turn = true;
+
+                currentGame.player2.send("updateOppGrid");
+                currentGame.player2.send(currentGame.p2OppGrid);
+                currentGame.player2.send("turnmessage");
+                currentGame.player2.send(false); 
+                currentGame.player1.send("updateOwnGrid");
+                currentGame.player1.send(currentGame.p1OwnGrid);
+                currentGame.player1.send("turnmessage");
+                currentGame.player1.send(true); 
+
+            } else if (currentGame.p2OppGrid[y][x] >= 3 || currentGame.p2OwnGrid[y][x] <= 7) {
+                currentGame.setGridValuesPlayer1(y, x, currentGame.p2OwnGrid[y][x] + 5, false);
+                currentGame.setGridValuesPlayer2(y, x, currentGame.p2OwnGrid[y][x] + 5, true);
+                currentGame.isPlayer1Turn = false;
+
+                currentGame.player2.send("updateOppGrid");
+                currentGame.player2.send(currentGame.p2OppGrid);
+                currentGame.player1.send("updateOwnGrid");
+                currentGame.player1.send(currentGame.p1OwnGrid);
+
+            } else {
+                console.log("That was not a valid move, please try again");
+                currentGame.isPlayer1Turn = false;
+            }
+        } else {
+            console.log("its not your turn");
+        }
+    });
+
 });
 server.listen(3000);

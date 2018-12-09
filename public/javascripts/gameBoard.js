@@ -14,20 +14,10 @@ recieve value
 recieve opp value
 update opp grid
 */
+var identifier;
+var isData = false;
 
-//hardcoded for testing purposes
-var grid = [
-    [0, 1, 2, 3 + 5, 4 + 5, 5 + 5, 6 + 5, 7 + 5, 0, 0],
-    [0, 0, 3, 3, 3, 3, 3, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 5, 5, 5, 0],
-    [0, 0, 0, 4, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 4, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 4, 0, 0, 0, 0, 0, 0],
-    [0, 6, 0, 4, 0, 0, 0, 0, 0, 0],
-    [0, 6, 0, 0, 0, 0, 0, 7, 7, 0],
-    [0, 6, 0, 0, 0, 0, 0, 0, 0, 0],
-]
+var grid;
 
 var oppgrid = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -41,6 +31,26 @@ var oppgrid = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 ]
+
+socket.onmessage = function(data) {
+    if (isData) {
+        //call all functions
+        if (identifier == "updateOwnGrid") {
+            updateGrid("yourgrid", data);
+        } else if (identifier == "updateOppGrid") {
+            updateGrid("oppgrid", data);
+        } else if (identifier == "turnmessage") {
+            turn(data);
+        } else {
+
+        }
+
+        isData = false;
+    }
+
+    identifier = data;
+    isData = true;
+}
 
 function initOppGrid() {
     var gameBoard = document.getElementById("oppgrid");
@@ -112,11 +122,15 @@ function updateGrid(grid, gridValues) {
     }
 }
 
-updateGrid("yourgrid", grid);
-initOppGrid();
-
 function sendCoordinate(coord) {
-    console.log("you pressed " + coord);
+    socket.send(coord);
+        console.log("player sent a coordinate.");
+}
+
+function turn(isYourTurn) {
+    if (isYourTurn) {
+        console.log("its your turn!");
+    }
 }
 
 function recieveValue(gridValues, coordinate, value, isYourGrid) {
@@ -126,7 +140,7 @@ function recieveValue(gridValues, coordinate, value, isYourGrid) {
         gridValues[coordinate[0]][coordinate[1]] = value;
         updateGrid("yourgrid", gridValues);
     } else {
-        gridValues[coordinate[0]][coordinate[1]] = values;
+        gridValues[coordinate[0]][coordinate[1]] = value;
         updateGrid("oppgrid", gridValues)
     }
 }
