@@ -9,19 +9,24 @@
 </head>
 <body>
     <header>
-        <h1>BATTLESHIPS</h1>
-        <img src="images/icon.png">
+        <img class="logo left" src="images/icon.png">
+        <img class="logo right" src="images/icon.png">
+        <h1 class="h1">BATTLESHIPS</h1>
+        <div class = "notification notification-box">
+            <div class = "notification-message"></div>
+            <p id="notification">Place the ships where you want them</p>
+        </div>
     </header>
 
     <main>
         <button class="leavebutton">Leave Game</button>
-        <div class="left-grid-container">
+        <div class="left-grid-container grid">
             <table id="yourgrid">
                 
             </table>
             <p class="subgridtext">Your Grid</p>
         </div>
-        <div class="right-grid-container">
+        <div class="right-grid-container grid">
             <table id="oppgrid">
             </table>
             <p class="subgridtext">Opponent's Grid</p>
