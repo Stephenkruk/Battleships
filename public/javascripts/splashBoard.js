@@ -145,6 +145,8 @@ function checkPlacement(ship, startX, startY, endX, endY) {
         // You don't need to test the x-values since a vertical ship can't be placed out of bounds in the x-axis
         if (startY < 0 || endY > 9) {
             console.log("You can't place a ship there");
+            document.getElementById("notification").innerHTML = "You can't place a ship there";
+
             return false;
         }
         //check if all the values inbetween the start- and end-coordinate are free
@@ -153,6 +155,7 @@ function checkPlacement(ship, startX, startY, endX, endY) {
 
             } else if (gridValues[i][startX] != 0 && gridValues[i][startX] != ship.getType()) {
                 console.log("You can't place a ship there");
+                document.getElementById("notification").innerHTML = "You can't place a ship there";
                 return false;
             }
         }
@@ -161,6 +164,7 @@ function checkPlacement(ship, startX, startY, endX, endY) {
         //You don't need to test the y-values since a horizontal ship can't be placed out of bounds in the y-axis
         if (startX < 0 || endX > 9) {
             console.log("You can't place a ship there");
+            document.getElementById("notification").innerHTML = "You can't place a ship there";
             return false;
         }
         //check if all the values inbetween the start- and end-coordinate are free
@@ -169,6 +173,7 @@ function checkPlacement(ship, startX, startY, endX, endY) {
 
             } else if (gridValues[startY][i] != 0 && gridValues[startY][i] != ship.getType()) {
                 console.log("You can't place a ship there");
+                document.getElementById("notification").innerHTML = "You can't place a ship there";
                 return false;
             }
         }
