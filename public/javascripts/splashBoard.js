@@ -56,6 +56,15 @@ function updateGrid() {
             tr.appendChild(td);
             td.id = i + "," + j;
 
+            // 0 = empty field, 
+            // 1 = miss
+            // 2 = hit
+            // 3 = carrier
+            // 4 = battleship
+            // 5 = cruiser
+            // 6 = submarine
+            // 7 = destroyer
+
             if (gridValues[i][j] == 0) {
                 td.className = "cell";
             } else if (gridValues[i][j] == 3) {
@@ -360,15 +369,35 @@ function sendCoordinate(coord) {
 
 document.getElementById("startgrid").addEventListener("click", function () {
     console.log("updatenotifbar: ", clickedShip);
+    var myElement = document.querySelector("#notification");
     if (clickedShip == undefined) {
-        document.getElementById("notification").innerHTML = "Select a ship you want to move or rotate";
+        myElement.innerHTML = "Select a ship you want to move or rotate";
+        myElement.style.color = "black";
+        myElement.style.fontWeight = "normal";
     }
     if (clickedShip != undefined) {
-        var notifShip = [];
-        for (var i = 0; i < clickedShip.length; i++) {
-            notifShip[i] = clickedShip.type;
+        var notifShip;
+        var color;
+        var temp = clickedShip.type;
+        if (temp ==3) {
+            notifShip = "Carrier";
+            color = "rgb(37, 56, 96)";
+        } else if(temp ==4) {
+            notifShip = "Battleship";
+            color = "blue";
+        } else if(temp ==5) {
+            notifShip = "Cruiser";
+            color = "orange";
+        } else if(temp == 6) {
+            notifShip = "Submarine"
+            color = "green";
+        } else if (temp == 7){
+            notifShip = "Destroyer";
+            color = "yellow";
         }
-        document.getElementById("notification").innerHTML = notifShip;
+        myElement.style.color = color;
+        myElement.innerHTML = "You selected: " +  notifShip;
+        myElement.style.fontWeight = "bold";
     }
 });
 
