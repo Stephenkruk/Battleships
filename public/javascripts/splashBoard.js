@@ -402,10 +402,9 @@ document.getElementById("startgrid").addEventListener("click", function () {
 });
 
 function toGame() {
-    var socket = new WebSocket("ws://localhost:3000");
-    socket.onopen = function() {
-        socket.send(gridValues);
-        socket.send(ships);
-    }
+    var tempGrid = JSON.stringify(gridValues);
+    localStorage.setItem("storageGrid", tempGrid);
+    var tempShips = JSON.stringify(ships);
+    localStorage.setItem("storageShips", tempShips);
     window.location.replace("game.html");
 }
