@@ -21,7 +21,8 @@ var identifier;
 var isData = false;
 var socket = new WebSocket("ws://localhost:3000");
 
-socket.onopen = function() {
+
+function sendGridValues() {
     socket.send(storedGrid);
     socket.send(storedShips);
 }
@@ -35,6 +36,8 @@ socket.onmessage = function(data) {
         } else if (identifier == "updateOppGrid") {
             tempGrid = JSON.parse(data.data);
             updateGrid("oppgrid", tempGrid);
+        } else if (identifier == "sendGridValues") {
+            sendGridValues();
         } else if (identifier == "initOppGrid") {
             initOppGrid();
         } else if (identifier == "turnmessage") {
@@ -47,6 +50,7 @@ socket.onmessage = function(data) {
     }
 
     identifier = data.data;
+    console.log(identifier);
     isData = true;
 }
 
@@ -113,7 +117,8 @@ function updateGrid(grid, gridValues) {
 
             if (grid == "oppgrid" && gridValues[i][j] == 0) {
                 td.onclick = function (event) {
-                    sendCoordinate(event.srcElement.id);
+                    var coordinate = (event.srcElement.id).split(",").map(function (t) { return parseInt(t) });
+                    sendCoordinate(coordinate);
                 };
             }
         }
@@ -121,8 +126,9 @@ function updateGrid(grid, gridValues) {
 }
 
 function sendCoordinate(coord) {
-    socket.send(coord);
+    socket.send(JSON.stringify(coord));
         console.log("player sent a coordinate.");
+        console.log(coord);
 }
 
 function turn(isYourTurn) {
