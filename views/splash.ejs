@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>BattleShips</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/style.css" />
+    
+</head>
+<body>
+    <header>
+        <img class="logo left" src="images/icon.png">
+        <img class="logo right" src="images/icon.png">
+        <h1 class="h1">BATTLESHIPS</h1>
+        <div class = "notification notification-box">
+            <div class = "notification-message"></div>
+            <div id="notification">Place the ships where you want them</div>
+        </div>
+    </header>
+
+    <main>
+        <button class="button" id="readybutton" onclick="toGame()">Ready</button>
+        <button class="button" id="rotatebutton" onclick="rotateShip()">Rotate Ship</button>
+        <button class="button" id="randombutton" onclick="randomize()">Randomize ship placement</button>
+        <div class="griddiv">
+            <table id="startgrid" class="grid">
+            </table>
+            <p class="gridname"></p>
+        </div>
+        <div>
+            <h2 class="info">Game Description:</h2>
+            <p class="info" id="container">Move a ship by clicking the ship and clicking the cell you want to move it to.</p>
+            <p class="info" id="container">Rotate a ship by clicking the ship and clicking the "Rotate Ship" button.</p>
+            <p class="info" id="container">Click ready to find an opponent after you've placed all your ships.</p>
+        <div class="stat-container">
+            <p class="statistics">Statistics </p>
+            <ul class ="stat">Games started </ul>
+            <ul class ="stat">Ships sunk</ul>
+            <ul class ="stat">Missiles fired</ul>
+        </div>
+    </main>
+    
+    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script src="javascripts/shipClass.js"></script>
+    <script src="javascripts/splashBoard.js"></script>
+</body>
+</html>

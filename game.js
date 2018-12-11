@@ -15,16 +15,9 @@ var game = function(id) {
     this.isPlayer1InitDone = false;
     this.isPlayer2InitDone = false;
     this.initDone = false;
+    this.isFinished = false;
 
     this.gameState = "0 JOINT";
-}
-
-game.prototype.getPlayer = function(player) {
-    if (player == 1) {
-        return this.player1;
-    } else {
-        return this.player2;
-    }
 }
 
 game.prototype.setGrid = function(grid, ships, isPlayer1) {
@@ -77,6 +70,14 @@ game.prototype.setGridValuesPlayer2 = function(r, c, value, isOwnGrid) {
     }
 }
 
+game.prototype.checkGameWin = function(player) {
+    if (player == 1) {
+        return (this.hitShips1 == 17);
+    } else {
+        return (this.hitShips2 == 17);
+    }
+}
+
 game.prototype.hasTwoConnectedPlayers = function() {
     return (this.gameState == "2 JOINT");
 }
@@ -86,14 +87,10 @@ game.prototype.addPlayer = function(player) {
     if (this.player1 == null) {
         this.player1 = player;
         this.gameState = "1 JOINT";
-        //console.log("player 1 is " + player);
-        return "1";
     }
     else {
         this.player2 = player;
         this.gameState = "2 JOINT";
-        //console.log("player 2 is " + player);
-        return "2";
     }
 }
 

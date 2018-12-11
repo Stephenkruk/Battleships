@@ -49,7 +49,6 @@ socket.onmessage = function(data) {
         isData = false;
     }
     identifier = data.data;
-    //console.log(identifier);
     isData = true;
 }
 
