@@ -11,6 +11,11 @@ var game = function(id) {
     this.p2OppGrid = [];
     this.ship2 = null;
     this.hitShips2 = 0;
+
+    this.isPlayer1InitDone = false;
+    this.isPlayer2InitDone = false;
+    this.initDone = false;
+
     this.gameState = "0 JOINT";
 }
 
@@ -69,14 +74,6 @@ game.prototype.setGridValuesPlayer2 = function(r, c, value, isOwnGrid) {
         } else {
         this.p2OppGrid[r][c] = value;
         }
-    }
-}
-
-game.prototype.setGridValuesPlayer2 = function(r, c, value, isGrid1) {
-    if (isGrid1) {
-        this.grid1[r][c] = value;
-    } else {
-        this.grid2[r][c] = value;
     }
 }
 

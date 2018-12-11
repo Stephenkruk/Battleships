@@ -41,16 +41,15 @@ socket.onmessage = function(data) {
         } else if (identifier == "initOppGrid") {
             initOppGrid();
         } else if (identifier == "turnmessage") {
-            turn(data.data);
+            turn(JSON.parse(data.data));
         } else {
 
         }
 
         isData = false;
     }
-
     identifier = data.data;
-    console.log(identifier);
+    //console.log(identifier);
     isData = true;
 }
 
@@ -75,6 +74,13 @@ function initOppGrid() {
 }
 
 function updateGrid(grid, gridValues) {
+
+    var element;
+    element = document.getElementById(grid);
+    if (element) {
+        element.innerHTML = null;
+    }
+
     var gameBoard = document.getElementById(grid);
 
     for (var i = 0; i < 10; i++) {
@@ -86,6 +92,8 @@ function updateGrid(grid, gridValues) {
             var td = document.createElement("td");
             tr.appendChild(td);
             td.id = i + "," + j;
+            console.log(gridValues)
+
             //based on the values of the cell coordinate, give a class to the cell
             if (gridValues[i][j] == 0) {
                 td.className = "cell";
@@ -117,8 +125,7 @@ function updateGrid(grid, gridValues) {
 
             if (grid == "oppgrid" && gridValues[i][j] == 0) {
                 td.onclick = function (event) {
-                    var coordinate = (event.srcElement.id).split(",").map(function (t) { return parseInt(t) });
-                    sendCoordinate(coordinate);
+                    sendCoordinate(event.srcElement.id);
                 };
             }
         }
@@ -126,9 +133,10 @@ function updateGrid(grid, gridValues) {
 }
 
 function sendCoordinate(coord) {
-    socket.send(JSON.stringify(coord));
-        console.log("player sent a coordinate.");
-        console.log(coord);
+    var coordinate = (coord).split(",").map(function (t) { return parseInt(t) });
+    socket.send(JSON.stringify(coordinate));
+    console.log("player sent a coordinate:");
+    console.log(coordinate);
 }
 
 function turn(isYourTurn) {
