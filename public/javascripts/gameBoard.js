@@ -92,7 +92,6 @@ function updateGrid(grid, gridValues) {
             var td = document.createElement("td");
             tr.appendChild(td);
             td.id = i + "," + j;
-            console.log(gridValues)
 
             //based on the values of the cell coordinate, give a class to the cell
             if (gridValues[i][j] == 0) {
@@ -135,24 +134,12 @@ function updateGrid(grid, gridValues) {
 function sendCoordinate(coord) {
     var coordinate = (coord).split(",").map(function (t) { return parseInt(t) });
     socket.send(JSON.stringify(coordinate));
-    console.log("player sent a coordinate:");
+    console.log("player sent coordinate:");
     console.log(coordinate);
 }
 
 function turn(isYourTurn) {
     if (isYourTurn) {
         console.log("its your turn!");
-    }
-}
-
-function recieveValue(gridValues, coordinate, value, isYourGrid) {
-    var coordinate = (coord).split(",").map(function (t) { return parseInt(t) });
-
-    if (isYourGrid) {
-        gridValues[coordinate[0]][coordinate[1]] = value;
-        updateGrid("yourgrid", gridValues);
-    } else {
-        gridValues[coordinate[0]][coordinate[1]] = value;
-        updateGrid("oppgrid", gridValues)
     }
 }

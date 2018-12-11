@@ -54,10 +54,12 @@ wss.on("connection", function connection(ws) {
                     grid = JSON.parse(data);
                     isGrid = false;
                 } else {
+                    if (currentGame.initDone == false) {
                     ships = JSON.parse(data);
                     isGrid = true;
                     currentGame.setGrid(grid, ships, true);
                     currentGame.isPlayer1InitDone = true;
+                    }
                 }
 
                 if (!currentGame.initDone) {
@@ -81,10 +83,12 @@ wss.on("connection", function connection(ws) {
                     grid = JSON.parse(data);
                     isGrid = false;
                 } else {
-                    ships = JSON.parse(data);
-                    isGrid = true;
-                    currentGame.setGrid(grid, ships, false);
-                    currentGame.isPlayer2InitDone = true;
+                    if (currentGame.initDone == false) {
+                        ships = JSON.parse(data);
+                        isGrid = true;
+                        currentGame.setGrid(grid, ships, false);
+                        currentGame.isPlayer2InitDone = true;
+                    }
                 }
 
                 if (!currentGame.initDone) {
@@ -115,48 +119,49 @@ wss.on("connection", function connection(ws) {
                     var y = coordinate[0];
                     var x = coordinate[1];
 
+                    //console.log("player 2 grid is " + currentGame.p2OwnGrid);
                     var currentVal = currentGame.p2OwnGrid[y][x];
-                    console.log("player 1 pressed: y: " + y + " and x: " + x);
+                    //console.log("player 1 pressed: y: " + y + " and x: " + x);
                     console.log("value player 1 pressed is " + currentVal);
-
-                    currentGame.isPlayer1Turn = false;
-                    /*
+                    
                     if (currentVal == 0) {
                         currentGame.setGridValuesPlayer1(y, x, 1, false);
                         currentGame.setGridValuesPlayer2(y, x, 1, true);
                         currentGame.isPlayer1Turn = false;
     
+                        //update p1OppGrid miss, update p2OwnGrid miss
                         currentGame.player1.send("updateOppGrid");
                         currentGame.player1.send(JSON.stringify(currentGame.p1OppGrid));
-                        currentGame.player1.send("turnmessage");
-                        currentGame.player1.send(JSON.stringify(false));
                         currentGame.player2.send("updateOwnGrid");
                         currentGame.player2.send(JSON.stringify(currentGame.p2OwnGrid));
+                        //turn to player 2
                         currentGame.player2.send("turnmessage");
                         currentGame.player2.send(JSON.stringify(true));
     
-                    } else if (currentVal >= 3 || currentVal <= 7) {
+                    } else if (currentVal >= 3 && currentVal <= 7) {
                         currentGame.setGridValuesPlayer1(y, x, currentVal + 5, false);
                         currentGame.setGridValuesPlayer2(y, x, currentVal + 5, true);
                         currentGame.isPlayer1Turn = true;
-    
+                        
+                        //update p1OppGrid Hit, update p2OwnGrid hit
                         currentGame.player1.send("updateOppGrid");
                         currentGame.player1.send(JSON.stringify(currentGame.p1OppGrid));
                         currentGame.player2.send("updateOwnGrid");
                         currentGame.player2.send(JSON.stringify(currentGame.p2OwnGrid));
-    
+                        //turn to player 1
+                        currentGame.player1.send("turnmessage");
+                        currentGame.player1.send(JSON.stringify(true));
+
                     } else {
                         console.log("That was not a valid move, please try again");
                         currentGame.isPlayer1Turn = true;
                     }
-                    */
-
                 } else {
                     console.log("its player 2's turn");
                 }
             }
         });
-        
+
         currentGame.player2.on("message", function incoming(data) {
             if (currentGame.isPlayer1InitDone && currentGame.isPlayer2InitDone) {
                 if (!currentGame.isPlayer1Turn) {
@@ -164,40 +169,43 @@ wss.on("connection", function connection(ws) {
                     var y = coordinate[0];
                     var x = coordinate[1];
 
+                    //console.log("p1 grid is " + currentGame.p1OwnGrid);
                     var currentVal = currentGame.p1OwnGrid[y][x];
-                    console.log("player 2 pressed: y: " + y + " and x: " + x);
+                    //console.log("player 2 pressed: y: " + y + " and x: " + x);
                     console.log("value player 2 pressed is " + currentVal);
-
-                    currentGame.isPlayer1Turn = true;
-                    /*
+                    
                     if (currentVal == 0) {
                         currentGame.setGridValuesPlayer1(y, x, 1, true);
                         currentGame.setGridValuesPlayer2(y, x, 1, false);
                         currentGame.isPlayer1Turn = true;
     
+                        //update p2OppGrid miss, update p1OwnGrid miss
                         currentGame.player2.send("updateOppGrid");
                         currentGame.player2.send(JSON.stringify(currentGame.p2OppGrid));
-                        currentGame.player2.send("turnmessage");
-                        currentGame.player2.send(JSON.stringify(false));
                         currentGame.player1.send("updateOwnGrid");
                         currentGame.player1.send(JSON.stringify(currentGame.p1OwnGrid));
+                        //turn to player 1
                         currentGame.player1.send("turnmessage");
                         currentGame.player1.send(JSON.stringify(true));
     
                     } else if (currentVal >= 3 || currentVal <= 7) {
-                        currentGame.setGridValuesPlayer1(y, x, currentVal + 5, false);
-                        currentGame.setGridValuesPlayer2(y, x, currentVal + 5, true);
+                        currentGame.setGridValuesPlayer1(y, x, currentVal + 5, true);
+                        currentGame.setGridValuesPlayer2(y, x, currentVal + 5, false);
                         currentGame.isPlayer1Turn = false;
     
+                        //update p2OppGrid Hit, update p1OwnGrid hit
                         currentGame.player2.send("updateOppGrid");
                         currentGame.player2.send(JSON.stringify(currentGame.p2OppGrid));
                         currentGame.player1.send("updateOwnGrid");
                         currentGame.player1.send(JSON.stringify(currentGame.p1OwnGrid));
+                        //give turn to player 2
+                        currentGame.player2.send("turnmessage");
+                        currentGame.player2.send(JSON.stringify(true));
     
                     } else {
                         console.log("That was not a valid move, please try again");
                         currentGame.isPlayer1Turn = false;
-                    }*/
+                    }
                 } else {
                     console.log("its player 1's turn");
                 }
