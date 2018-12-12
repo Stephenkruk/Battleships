@@ -14,18 +14,18 @@ var isGrid = true;
 var grid = null;
 var ships = null;
 
+app.set("view engine", "ejs");
+app.use(express.static(__dirname + "/public"));
+
 app.get("/play", indexRouter);
 
 app.get("/", (req, res) => {
-    res.sendFile("splash.html", { root: "./public" });
+    res.render("splash.ejs", { gamesInitialized: gameStatus.gamesInitialized, shotsHit: gameStatus.shotsHit, shotsFired: gameStatus.shotsFired });
 });
 
-app.use(express.static(__dirname + "/public"));
 var server = http.createServer(app);
 
 const wss = new websocket.Server({ server });
-
-//var websockets = {};
 
 var newGame = new Game(gameStatus.gamesInitialized++);
 var connectionID = 0;
