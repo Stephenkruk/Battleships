@@ -126,6 +126,7 @@ wss.on("connection", function connection(ws) {
                             currentGame.setGridValuesPlayer1(y, x, 1, false);
                             currentGame.setGridValuesPlayer2(y, x, 1, true);
                             currentGame.isPlayer1Turn = false;
+                            gameStatus.shotsFired++;
 
                             //update p1OppGrid miss, update p2OwnGrid miss
                             currentGame.player1.send("updateOppGrid");
@@ -141,6 +142,8 @@ wss.on("connection", function connection(ws) {
                             currentGame.setGridValuesPlayer2(y, x, currentVal + 5, true);
                             currentGame.isPlayer1Turn = true;
                             currentGame.hitShips1++;
+                            gameStatus.shotsFired++;
+                            gameStatus.shotsHit++;
 
                             if (currentGame.checkGameWin(1)) {
                                 console.log("player 1 has won the game!");
@@ -171,7 +174,7 @@ wss.on("connection", function connection(ws) {
 
         currentGame.player2.on("message", function incoming(data) {
             if (currentGame.isPlayer1InitDone && currentGame.isPlayer2InitDone) {
-                if (currentGame.isFinished) {
+                if (!currentGame.isFinished) {
                     if (!currentGame.isPlayer1Turn) {
                         var coordinate = JSON.parse(data);
                         var y = coordinate[0];
@@ -183,6 +186,7 @@ wss.on("connection", function connection(ws) {
                             currentGame.setGridValuesPlayer1(y, x, 1, true);
                             currentGame.setGridValuesPlayer2(y, x, 1, false);
                             currentGame.isPlayer1Turn = true;
+                            gameStatus.shotsFired++;
 
                             //update p2OppGrid miss, update p1OwnGrid miss
                             currentGame.player2.send("updateOppGrid");
@@ -198,6 +202,8 @@ wss.on("connection", function connection(ws) {
                             currentGame.setGridValuesPlayer2(y, x, currentVal + 5, false);
                             currentGame.isPlayer1Turn = false;
                             currentGame.hitShips2++;
+                            gameStatus.shotsFired++;
+                            gameStatus.shotsHit++;
 
                             if (currentGame.checkGameWin(2)) {
                                 console.log("player 2 has won the game!");

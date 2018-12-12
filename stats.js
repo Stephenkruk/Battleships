@@ -1,8 +1,6 @@
 var gameStatus = {
-    since : Date.now(),     /* since we keep it simple and in-memory, keep track of when this object was created */
-    gamesInitialized : 0,   /* number of games initialized */
-    gamesAborted : 0,       /* number of games aborted */
-    gamesCompleted : 0,      /* number of games successfully completed */
+    since : Date.now(),
+    gamesInitialized : 0,
     shotsFired: 0,
     shotsHit: 0
 };
