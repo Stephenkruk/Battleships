@@ -47,7 +47,8 @@ socket.onmessage = function(data) {
             gameMessage(JSON.parse(data.data));
         } else if (identifier == "setGameEnd") {
             gameEnd = true;
-        } else {
+            document.getElementsByClassName("leavebutton")[0].innerHTML = "Play Again";
+        } else{
 
         }
 
@@ -150,4 +151,9 @@ function turn(isYourTurn) {
 
 function gameMessage(message) {
     document.getElementById("notification").innerHTML = message;
+}
+
+function leaveGame() {
+    socket.close();
+    document.location.href = "/";
 }
