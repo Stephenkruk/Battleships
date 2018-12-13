@@ -165,6 +165,9 @@ wss.on("connection", function connection(ws) {
                                 currentGame.player1.send(JSON.stringify("Hit! Fire another missile!"));
                                 currentGame.player2.send("message");
                                 currentGame.player2.send(JSON.stringify("Your opponent hit a ship of yours!"));
+                                
+                                currentGame.player1.send("play");
+
                             }
                         } else {
                             currentGame.isPlayer1Turn = true;
