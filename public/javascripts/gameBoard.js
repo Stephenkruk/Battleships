@@ -48,8 +48,9 @@ socket.onmessage = function(data) {
         } else if (identifier == "setGameEnd") {
             gameEnd = true;
             document.getElementsByClassName("leavebutton")[0].innerHTML = "Play Again";
-        } else{
-
+        } else if (identifier == "play"){
+            var audio = new Audio('splash.wav');
+            audio.play();
         }
 
         isData = false;
