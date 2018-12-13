@@ -183,10 +183,14 @@ body {
 }
 
 .miss{
-    background: rgba(200, 200, 200, 0.75);
+    background: rgba(110, 106, 106, 0.75);
 }
 
-.hit{
+.right-grid-container .hit{
+    background: red;
+}
+
+.left-grid-container .hit{
     border: 1px solid red;
 }
 

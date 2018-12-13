@@ -1,6 +1,8 @@
 var express = require("express");
 var http = require("http");
 var websocket = require("ws");
+var cookies = require("cookie-parser");
+var sessions = require("express-session");
 
 var indexRouter = require("./routes/index");
 var messages = require("./public/javascripts/messages");
@@ -22,6 +24,9 @@ app.get("/play", indexRouter);
 app.get("/", (req, res) => {
     res.render("splash.ejs", { gamesInitialized: gameStatus.gamesInitialized, shotsHit: gameStatus.shotsHit, shotsFired: gameStatus.shotsFired });
 });
+
+app.use(cookies("some-secret"));
+app.use(sessions("some-secret"));
 
 var server = http.createServer(app);
 
@@ -280,3 +285,14 @@ wss.on("connection", function connection(ws) {
     }
 });
 server.listen(3000);
+
+app.get("/", function(req, res) {
+    var session = req.session;
+    if(session.views) {
+        session.views++;
+        res.send("You have been here " + session.views + " times");
+    } else {
+        session.views = 1;
+        res.send("This is your first time here");
+    }
+});
