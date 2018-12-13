@@ -5,8 +5,6 @@ var cookies = require("cookie-parser");
 var sessions = require("express-session");
 
 var indexRouter = require("./routes/index");
-var messages = require("./public/javascripts/messages");
-
 var gameStatus = require("./stats");
 var Game = require("./game");
 
@@ -166,8 +164,10 @@ wss.on("connection", function connection(ws) {
                                 currentGame.player1.send(JSON.stringify("Hit! Fire another missile!"));
                                 currentGame.player2.send("message");
                                 currentGame.player2.send(JSON.stringify("Your opponent hit a ship of yours!"));
-                                
-                                currentGame.player1.send("play");
+                                currentGame.player1.send("playHit");
+                                currentGame.player1.send(null);
+                                currentGame.player2.send("playHit");
+                                currentGame.player2.send(null);
 
                             }
                         } else {
@@ -216,6 +216,10 @@ wss.on("connection", function connection(ws) {
                             currentGame.player2.send(JSON.stringify("Miss! It's your opponent's turn."));
                             currentGame.player1.send("message");
                             currentGame.player1.send(JSON.stringify("Your opponent missed! It's your turn."));
+                            currentGame.player1.send("playHit");
+                            currentGame.player1.send(null);
+                            currentGame.player2.send("playHit");
+                            currentGame.player2.send(null);
 
                         } else if (currentVal >= 3 || currentVal <= 7) {
                             currentGame.setGridValuesPlayer1(y, x, currentVal + 5, true);

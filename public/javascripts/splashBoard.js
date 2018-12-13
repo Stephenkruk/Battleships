@@ -365,7 +365,6 @@ function randomize() {
     console.log(ships);
         var audio = new Audio('splash.wav');
         audio.play();
-    
 }
 
 // randomize the grid when the page is opened;
