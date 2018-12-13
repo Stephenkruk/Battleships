@@ -30,6 +30,10 @@ function resetArray() {
     }
     //empties the ships array
     ships.splice(0, ships.length)
+    clickedShip = undefined;
+    currentCoord = undefined;
+    nextCoord = undefined;
+    
 }
 
 // makes a clickable grid     
