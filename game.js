@@ -2,11 +2,15 @@ var game = function(id) {
     this.player1 = null;
     this.player2 = null;
     this.id = id;
+
     this.isPlayer1Turn = true;
+    this.isPlayer1Win = null;
+
     this.p1OwnGrid = null;
     this.p1OppGrid = [];
     this.ship1 = null;
     this.hitShips1 = 0;
+
     this.p2OwnGrid = null;
     this.p2OppGrid = [];
     this.ship2 = null;

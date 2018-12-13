@@ -18,6 +18,7 @@ var storedGrid = localStorage.getItem("storageGrid");
 var storedShips = localStorage.getItem("storageShips");
 var tempGrid
 var identifier;
+var gameEnd = false;
 var isData = false;
 var socket = new WebSocket("ws://localhost:3000");
 
@@ -40,8 +41,12 @@ socket.onmessage = function(data) {
             sendGridValues();
         } else if (identifier == "initOppGrid") {
             initOppGrid();
-        } else if (identifier == "turnmessage") {
+        } else if (identifier == "turn") {
             turn(JSON.parse(data.data));
+        } else if (identifier == "message"){
+            gameMessage(JSON.parse(data.data));
+        } else if (identifier == "setGameEnd") {
+            gameEnd = true;
         } else {
 
         }
@@ -121,7 +126,7 @@ function updateGrid(grid, gridValues) {
                 td.className = "cell ship cell-destroyer hit";
             }
 
-            if (grid == "oppgrid" && gridValues[i][j] == 0) {
+            if (grid == "oppgrid" && !gameEnd) {
                 td.onclick = function (event) {
                     sendCoordinate(event.srcElement.id);
                 };
@@ -141,4 +146,8 @@ function turn(isYourTurn) {
     if (isYourTurn) {
         console.log("its your turn!");
     }
+}
+
+function gameMessage(message) {
+    document.getElementById("notification").innerHTML = message;
 }
