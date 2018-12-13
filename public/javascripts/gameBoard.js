@@ -63,6 +63,8 @@ socket.onmessage = function(data) {
 function initOppGrid(addOnclick) {
     var gameBoard = document.getElementById("oppgrid");
 
+    gameBoard.innerHTML = null;
+
     for (var i = 0; i < 10; i++) {
         var tr = document.createElement("tr")
         gameBoard.appendChild(tr);

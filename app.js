@@ -41,6 +41,7 @@ wss.on("connection", function connection(ws) {
     newGame.addPlayer(con);
     //websockets[con.id] = newGame;
     var currentGame = newGame;
+
     if (currentGame.gameState == "1 JOINT") {
         currentGame.player1.send("message");
         currentGame.player1.send(JSON.stringify("Waiting for an opponent..."));        
@@ -216,7 +217,7 @@ wss.on("connection", function connection(ws) {
                             currentGame.player1.send("message");
                             currentGame.player1.send(JSON.stringify("Your opponent missed! It's your turn."));
 
-                        } else if (currentVal >= 3 || currentVal <= 7) {
+                        } else if (currentVal >= 3 && currentVal <= 7) {
                             currentGame.setGridValuesPlayer1(y, x, currentVal + 5, true);
                             currentGame.setGridValuesPlayer2(y, x, currentVal + 5, false);
                             currentGame.isPlayer1Turn = false;
