@@ -3,6 +3,7 @@ var ships = [];
 var clickedShip;
 var currentCoord;
 var nextCoord;
+var timesVisited;
 
 function getGridValues() {
     return gridValues;
@@ -11,6 +12,43 @@ function getGridValues() {
 function getShips() {
     return ships;
 }
+// function to set a cookie, get a cookie and check a cookie:
+function setCookie(name, value, days) {
+    var date = new Date();
+    date.setTime(d.getTime() + (days*24*60*60*1000));
+    var expirydate = "expires=" + date.toGMTString();
+    document.cookie = name + "=" + value + ";" + expires + ";path=/";
+}
+
+function getCookie(name) {
+    var cookieName = name + "=";
+    var decodeCookie = codeURIComponent(document.cookie);
+        var temp = decodeCookie.split(';');
+        for (var i = 0; i < temp.length; i++) {
+            var a = temp[i];
+            while (a.charAt(0) == ' ') {
+                a = a.substring(1);
+            }
+            if (caches.indexOf(cookieName) == 0) {
+                return a.substring(cookieName.length, a.length);
+            }
+        }
+        return "";
+}
+
+function checkCookie() {
+    var user=getCookie("username");
+  if (user != "") {
+    
+  } else {
+     user = prompt("Please enter your name:","");
+     if (user != "" && user != null) {
+       setCookie("username", user, 30);
+     }
+  }
+}
+
+
 
 /*
 Contains all functions that update either the grid or the gridArray
@@ -358,6 +396,9 @@ function randomize() {
     updateGrid();
     console.log(gridValues);
     console.log(ships);
+        var audio = new Audio('splash.wav');
+        audio.play();
+    
 }
 
 // randomize the grid when the page is opened;
@@ -407,4 +448,6 @@ function toGame() {
     var tempShips = JSON.stringify(ships);
     localStorage.setItem("storageShips", tempShips);
     window.location.replace("game.html");
+    // cookie
+
 }

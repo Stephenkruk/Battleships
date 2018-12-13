@@ -175,7 +175,7 @@ table {
 
 .statistics {
    color: white;
-   font-size: 35px;
+   font-size: 4vw;
    text-align: right;
    font-family: "courier new";
    font-weight: bold;
@@ -184,7 +184,7 @@ table {
 
 .stat {
   color: white;
-  font-size: 20px;
+  font-size: 2vw;
   text-align: right;
   font-family: "courier new";
 }
