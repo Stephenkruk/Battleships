@@ -1,6 +1,8 @@
 var express = require("express");
 var http = require("http");
 var websocket = require("ws");
+var cookies = require("cookie-parser");
+var sessions = require("express-session");
 
 var indexRouter = require("./routes/index");
 var messages = require("./public/javascripts/messages");
@@ -22,6 +24,9 @@ app.get("/play", indexRouter);
 app.get("/", (req, res) => {
     res.render("splash.ejs", { gamesInitialized: gameStatus.gamesInitialized, shotsHit: gameStatus.shotsHit, shotsFired: gameStatus.shotsFired });
 });
+
+app.use(cookies("some-secret"));
+app.use(sessions("some-secret"));
 
 var server = http.createServer(app);
 
@@ -156,7 +161,7 @@ wss.on("connection", function connection(ws) {
                             currentGame.player2.send("updateOwnGrid");
                             currentGame.player2.send(JSON.stringify(currentGame.p2OwnGrid));
                             //turn to player 1
-                            currentGame.player1.send("turnmessage");
+                            currentGame.player1.send(" message");
                             currentGame.player1.send(JSON.stringify(true));
 
                         } else {
@@ -164,7 +169,7 @@ wss.on("connection", function connection(ws) {
                             currentGame.isPlayer1Turn = true;
                         }
                     } else {
-                        console.log("its player 2's turn");
+                        console.log("its player 2's turn");  
                     }
                 } else {
                     console.log("the game has been completed, no further moves can be made");
@@ -235,3 +240,14 @@ wss.on("connection", function connection(ws) {
 
 });
 server.listen(3000);
+
+app.get("/", function(req, res) {
+    var session = req.session;
+    if(session.views) {
+        session.views++;
+        res.send("You have been here " + session.views + " times");
+    } else {
+        session.views = 1;
+        res.send("This is your first time here");
+    }
+});
