@@ -42,6 +42,10 @@ wss.on("connection", function connection(ws) {
     newGame.addPlayer(con);
     //websockets[con.id] = newGame;
     var currentGame = newGame;
+    if (currentGame.gameState == "1 JOINT") {
+        currentGame.player1.send("message");
+        currentGame.player1.send(JSON.stringify("Waiting for an opponent..."));        
+    }
 
     if (newGame.hasTwoConnectedPlayers()) {
         newGame = new Game(gameStatus.gamesInitialized++);

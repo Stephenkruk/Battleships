@@ -411,6 +411,5 @@ function toGame() {
     var tempShips = JSON.stringify(ships);
     localStorage.setItem("storageShips", tempShips);
     window.location.replace("game.html");
-    // cookie
 
 }
