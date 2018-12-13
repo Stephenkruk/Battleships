@@ -104,16 +104,6 @@ wss.on("connection", function connection(ws) {
         });
     }
 
-    function checkInit() {
-        if (currentGame.hasTwoConnectedPlayers()) {
-            if (currentGame.isPlayer1InitDone && currentGame.isPlayer2InitDone) {
-                currentGame.player1.send("message");
-                currentGame.player1.send(JSON.stringify("It's your turn."));
-                currentGame.initDone = true;
-            }
-        }
-    }
-
     if (currentGame.hasTwoConnectedPlayers()) {
         currentGame.player1.on("message", function incoming(data) {
             if (currentGame.isPlayer1InitDone && currentGame.isPlayer2InitDone) {
@@ -266,6 +256,16 @@ wss.on("connection", function connection(ws) {
         });
     }
 
+    function checkInit() {
+        if (currentGame.hasTwoConnectedPlayers()) {
+            if (currentGame.isPlayer1InitDone && currentGame.isPlayer2InitDone) {
+                currentGame.player1.send("message");
+                currentGame.player1.send(JSON.stringify("It's your turn."));
+                currentGame.initDone = true;
+            }
+        }
+    }
+
     function sendWinMsg(isPlayer1Win) {
         if (isPlayer1Win) {
             currentGame.player1.send("message");
@@ -282,6 +282,30 @@ wss.on("connection", function connection(ws) {
         currentGame.player2.send("null");
         currentGame.player1.send("setGameEnd");
         currentGame.player1.send("null");
+    }
+
+    if (currentGame.hasTwoConnectedPlayers()) {
+        currentGame.player1.on("close", function(code) {
+            currentGame.player1 = null;
+            if (currentGame.player2 != null) {
+                console.log("player 1 disconnected, code: " + code);
+                currentGame.player2.send("message");
+                currentGame.player2.send(JSON.stringify("Your opponent left, press the Leave Game button to go back to the homescreen."));
+                currentGame.player2.send("emptyOppGrid");
+                currentGame.player2.send(null);
+            }
+        });
+
+        currentGame.player2.on("close", function(code) {
+            currentGame.player2 = null;
+            if(currentGame.player1 != null) {
+                console.log("player 2 disconnected, code: " + code);
+                currentGame.player1.send("message");
+                currentGame.player1.send(JSON.stringify("Your opponent left, press the Leave Game button to go back to the homescreen."));
+                currentGame.player1.send("emptyOppGrid");
+                currentGame.player1.send(null);
+            }
+        });
     }
 });
 server.listen(3000);

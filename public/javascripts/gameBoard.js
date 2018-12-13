@@ -40,15 +40,17 @@ socket.onmessage = function(data) {
         } else if (identifier == "sendGridValues") {
             sendGridValues();
         } else if (identifier == "initOppGrid") {
-            initOppGrid();
+            initOppGrid(true);
         } else if (identifier == "turn") {
             turn(JSON.parse(data.data));
         } else if (identifier == "message"){
-            gameMessage(JSON.parse(data.data));
+            document.getElementById("notification").innerHTML = JSON.parse(data.data);
         } else if (identifier == "setGameEnd") {
             gameEnd = true;
             document.getElementsByClassName("leavebutton")[0].innerHTML = "Play Again";
-        } else{
+        } else if (identifier == "emptyOppGrid"){
+            initOppGrid(false);
+        } else {
 
         }
 
@@ -58,7 +60,7 @@ socket.onmessage = function(data) {
     isData = true;
 }
 
-function initOppGrid() {
+function initOppGrid(addOnclick) {
     var gameBoard = document.getElementById("oppgrid");
 
     for (var i = 0; i < 10; i++) {
@@ -70,9 +72,11 @@ function initOppGrid() {
             var td = document.createElement("td");
             tr.appendChild(td);
             td.id = i + "," + j;
-            td.onclick = function (event) {
-                sendCoordinate(event.srcElement.id);
-            };
+            if (addOnclick) {
+                td.onclick = function (event) {
+                    sendCoordinate(event.srcElement.id);
+                };
+            }
             td.className = "cell";
         }
     }
@@ -149,11 +153,6 @@ function turn(isYourTurn) {
     }
 }
 
-function gameMessage(message) {
-    document.getElementById("notification").innerHTML = message;
-}
-
 function leaveGame() {
-    socket.close();
     document.location.href = "/";
 }
