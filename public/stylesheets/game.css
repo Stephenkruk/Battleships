@@ -263,8 +263,6 @@ table {
     font-size: 1.6vw;
     text-align: center;
 }
-<<<<<<< HEAD
-=======
 
 #left-subgrid::before {
     content: "Your ";
@@ -273,4 +271,3 @@ table {
 #right-subgrid::after {
     content: " grid";
 }
->>>>>>> b7d4c9c5a83b70e45dac439e345baf1839a0de1f
