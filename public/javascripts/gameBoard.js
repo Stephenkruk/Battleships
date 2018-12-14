@@ -50,8 +50,14 @@ socket.onmessage = function(data) {
             document.getElementsByClassName("leavebutton")[0].innerHTML = "Play Again";
         } else if (identifier == "emptyOppGrid"){
             initOppGrid(false);
-        } else {
-
+        } else if (identifier == "playHit") {
+            var audio = new Audio('hit.wav');
+            audio.play();
+            console.log("soundplayed");
+        } else if (identifier == "playMiss") {
+            var audio = new Audio('splash.wav');
+            audio.play();
+            console.log("soundplayed");
         }
 
         isData = false;
