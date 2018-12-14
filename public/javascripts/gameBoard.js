@@ -164,3 +164,14 @@ function turn(isYourTurn) {
 function leaveGame() {
     document.location.href = "/";
 }
+
+function fullscreen() {
+    var el = document.getElementById("body");
+     // use necessary prefixed versions
+    el.webkitRequestFullscreen();
+    el.mozRequestFullScreen();
+    el.msRequestFullscreen();
+
+    // finally the standard version
+    el.requestFullscreen();
+  }

@@ -414,5 +414,16 @@ function toGame() {
     var tempShips = JSON.stringify(ships);
     localStorage.setItem("storageShips", tempShips);
     window.location.replace("game.html");
-
 }
+
+window.addEventListener('resize', function checkScreen() {
+        var width = window.matchMedia("screen and (min-width: 500px)")
+        var height = window.matchMedia("screen and (min-height: 450px)")
+    if (!width.matches | !height.matches){ // if media query matches
+        alert("Your window is too small")
+        return;
+    } 
+    else {
+        console.log("screensize is sufficient")
+    }
+});

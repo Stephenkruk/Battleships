@@ -21,11 +21,9 @@ app.use(express.static(__dirname + "/public"));
 app.get("/play", indexRouter);
 
 app.get("/", (req, res) => {
+    res.cookie()
     res.render("splash.ejs", { gamesInitialized: gameStatus.gamesInitialized, shotsHit: gameStatus.shotsHit, shotsFired: gameStatus.shotsFired });
 });
-
-app.use(cookies("some-secret"));
-app.use(sessions("some-secret"));
 
 var server = http.createServer(app);
 
