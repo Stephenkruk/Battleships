@@ -5,6 +5,7 @@ var cookies = require("cookie-parser");
 var sessions = require("express-session");
 
 var indexRouter = require("./routes/index");
+
 var gameStatus = require("./stats");
 var Game = require("./game");
 
