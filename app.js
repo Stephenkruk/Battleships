@@ -128,6 +128,11 @@ wss.on("connection", function connection(ws) {
                             currentGame.player1.send(JSON.stringify(currentGame.p1OppGrid));
                             currentGame.player2.send("updateOwnGrid");
                             currentGame.player2.send(JSON.stringify(currentGame.p2OwnGrid));
+
+                            currentGame.player1.send("playMiss");
+                            currentGame.player1.send(null);
+                            currentGame.player2.send("playMiss");
+                            currentGame.player2.send(null);
                             //turn to player 2
                             currentGame.player2.send("turn");
                             currentGame.player2.send(JSON.stringify(true));
@@ -151,6 +156,11 @@ wss.on("connection", function connection(ws) {
                             currentGame.player2.send("updateOwnGrid");
                             currentGame.player2.send(JSON.stringify(currentGame.p2OwnGrid));
 
+                            currentGame.player1.send("playHit");
+                            currentGame.player1.send(null);
+                            currentGame.player2.send("playHit");
+                            currentGame.player2.send(null);
+
                             if (currentGame.checkGameWin(1)) {
                                 console.log("player 1 has won the game!");
                                 currentGame.isPlayer1Win = true;
@@ -164,11 +174,6 @@ wss.on("connection", function connection(ws) {
                                 currentGame.player1.send(JSON.stringify("Hit! Fire another missile!"));
                                 currentGame.player2.send("message");
                                 currentGame.player2.send(JSON.stringify("Your opponent hit a ship of yours!"));
-                                currentGame.player1.send("playHit");
-                                currentGame.player1.send(null);
-                                currentGame.player2.send("playHit");
-                                currentGame.player2.send(null);
-
                             }
                         } else {
                             currentGame.isPlayer1Turn = true;
@@ -208,6 +213,11 @@ wss.on("connection", function connection(ws) {
                             currentGame.player2.send(JSON.stringify(currentGame.p2OppGrid));
                             currentGame.player1.send("updateOwnGrid");
                             currentGame.player1.send(JSON.stringify(currentGame.p1OwnGrid));
+
+                            currentGame.player1.send("playMiss");
+                            currentGame.player1.send(null);
+                            currentGame.player2.send("playMiss");
+                            currentGame.player2.send(null);
                             //turn to player 1
                             currentGame.player1.send("turn");
                             currentGame.player1.send(JSON.stringify(true));
@@ -216,10 +226,6 @@ wss.on("connection", function connection(ws) {
                             currentGame.player2.send(JSON.stringify("Miss! It's your opponent's turn."));
                             currentGame.player1.send("message");
                             currentGame.player1.send(JSON.stringify("Your opponent missed! It's your turn."));
-                            currentGame.player1.send("playHit");
-                            currentGame.player1.send(null);
-                            currentGame.player2.send("playHit");
-                            currentGame.player2.send(null);
 
                         } else if (currentVal >= 3 && currentVal <= 7) {
                             currentGame.setGridValuesPlayer1(y, x, currentVal + 5, true);
@@ -234,6 +240,11 @@ wss.on("connection", function connection(ws) {
                             currentGame.player2.send(JSON.stringify(currentGame.p2OppGrid));
                             currentGame.player1.send("updateOwnGrid");
                             currentGame.player1.send(JSON.stringify(currentGame.p1OwnGrid));
+                            
+                            currentGame.player1.send("playHit");
+                            currentGame.player1.send(null);
+                            currentGame.player2.send("playHit");
+                            currentGame.player2.send(null);
 
                             if (currentGame.checkGameWin(2)) {
                                 console.log("player 2 has won the game!");
