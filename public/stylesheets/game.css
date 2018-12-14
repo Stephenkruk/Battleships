@@ -2,16 +2,34 @@ table {
     border-spacing: 0px;
 }
 
-body {
+/* for fullscreen */
+:not(:root):-webkit-full-screen::backdrop {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-color: rgb(36, 36, 122);
+}
+
+body{
     padding: 0px;
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
     background-color: #4369ab;
     margin: 0px;
 }
 
-body:fullscreen {
-    background-color: red;
+body:-webkit-full-screen {
+  background-color: #e4708a;
+  width: 100vw;
+  height: 100vh;
 }
+
+body:fullscreen {
+    background-color: #e4708a;
+    width: 100vw;
+    height: 100vh;
+  }
 
 .logo {
     width: 10%;
@@ -125,8 +143,8 @@ body:fullscreen {
 
 #fullscreen{
     position: relative;
-    left: 10%;
-    bottom: -5vw;
+    left: 45vw;
+    bottom: -30vw;
     transition: transform 0.1s;
     background-color: #0A538F;
     border-width: 1px;
@@ -144,13 +162,9 @@ body:fullscreen {
 #fullscreen:hover{
     background: white;
 	color: #0A538F;
-  /* box-shadow: inset 0 0 0 2px #3a7999; */
-  transform: scale(1.1);
+    transform: scale(1.1);
 }
 
-#fullscreen:fullscreen {
-    width: 0;
-}
 
   /* .leavebutton:hover:after {
     content: attr(data-hover);
@@ -249,5 +263,3 @@ table {
     font-size: 1.6vw;
     text-align: center;
 }
-
-/* fullscreen */
