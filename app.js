@@ -2,10 +2,8 @@ var express = require("express");
 var http = require("http");
 var websocket = require("ws");
 var cookies = require("cookie-parser");
-var sessions = require("express-session");
-
+var credentials = require("./credentials");
 var indexRouter = require("./routes/index");
-
 var gameStatus = require("./stats");
 var Game = require("./game");
 
@@ -15,16 +13,17 @@ var isGrid = true;
 var grid = null;
 var ships = null;
 
+app.use(cookies(credentials.cookieSecret));
+
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 
 app.get("/play", indexRouter);
 
 app.get("/", (req, res) => {
+    res.cookie("cookie", "cookie_one", { signed: true});
     res.render("splash.ejs", { gamesInitialized: gameStatus.gamesInitialized, shotsHit: gameStatus.shotsHit, shotsFired: gameStatus.shotsFired });
 });
-
-
 
 var server = http.createServer(app);
 
