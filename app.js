@@ -18,8 +18,17 @@ app.use(express.static(__dirname + "/public"));
 
 app.get("/play", indexRouter);
 
+app.use(cookies("string"));
+app.use(sessions("string"))
+
 app.get("/", (req, res) => {
-    res.render("splash.ejs", { gamesInitialized: gameStatus.gamesInitialized, shotsHit: gameStatus.shotsHit, shotsFired: gameStatus.shotsFired });
+    var session = req.session;
+    if(session.views){
+        session.views++;
+    } else {
+        session.views = 1;
+    }
+    res.render("splash.ejs", { gamesInitialized: gameStatus.gamesInitialized, shotsHit: gameStatus.shotsHit, shotsFired: gameStatus.shotsFired, timesVisited:session.views });
 });
 
 var server = http.createServer(app);
