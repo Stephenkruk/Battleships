@@ -21,9 +21,10 @@ app.use(express.static(__dirname + "/public"));
 app.get("/play", indexRouter);
 
 app.get("/", (req, res) => {
-    res.cookie()
     res.render("splash.ejs", { gamesInitialized: gameStatus.gamesInitialized, shotsHit: gameStatus.shotsHit, shotsFired: gameStatus.shotsFired });
 });
+
+
 
 var server = http.createServer(app);
 

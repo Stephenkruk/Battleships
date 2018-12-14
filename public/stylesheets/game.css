@@ -9,8 +9,7 @@ body {
     margin: 0px;
 }
 
-
-#body:fullscreen {
+body:fullscreen {
     background-color: red;
 }
 
@@ -232,9 +231,23 @@ table {
     border: 1px solid red;
 }
 
+.miss:hover{
+    cursor: not-allowed;
+}
+
+.right-grid-container .hit:hover{
+    cursor: not-allowed;
+}
+
+.left-grid-container .hit:hover{
+    cursor: not-allowed
+}
+
 .subgridtext {
     color: white;
     font-family: 'Courier New', Courier;
     font-size: 1.6vw;
     text-align: center;
 }
+
+/* fullscreen */
