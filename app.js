@@ -13,15 +13,12 @@ var isGrid = true;
 var grid = null;
 var ships = null;
 
-app.use(cookies(credentials.cookieSecret));
-
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 
 app.get("/play", indexRouter);
 
 app.get("/", (req, res) => {
-    res.cookie("cookie", "cookie_one", { signed: true});
     res.render("splash.ejs", { gamesInitialized: gameStatus.gamesInitialized, shotsHit: gameStatus.shotsHit, shotsFired: gameStatus.shotsFired });
 });
 
