@@ -28,7 +28,10 @@ app.get("/", (req, res) => {
     } else {
         session.views = 1;
     }
-    res.render("splash.ejs", { gamesInitialized: gameStatus.gamesInitialized, shotsHit: gameStatus.shotsHit, shotsFired: gameStatus.shotsFired, timesVisited:session.views });
+    res.render("splash.ejs", {  gamesInitialized: gameStatus.gamesInitialized,
+                                shotsHit: gameStatus.shotsHit,
+                                shotsFired: gameStatus.shotsFired,
+                                timesVisited:session.views });
 });
 
 var server = http.createServer(app);
@@ -337,14 +340,3 @@ wss.on("connection", function connection(ws) {
     }
 });
 server.listen(3000);
-
-app.get("/", function(req, res) {
-    var session = req.session;
-    if(session.views) {
-        session.views++;
-        res.send("You have been here " + session.views + " times");
-    } else {
-        session.views = 1;
-        res.send("This is your first time here");
-    }
-});
