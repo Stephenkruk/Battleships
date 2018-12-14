@@ -238,3 +238,11 @@ table {
     font-size: 1.6vw;
     text-align: center;
 }
+
+#left-subgrid::before {
+    content: "Your ";
+}
+
+#right-subgrid::after {
+    content: " grid";
+}
