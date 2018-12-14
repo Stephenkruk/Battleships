@@ -28,8 +28,8 @@ body {
       -webkit-transform: translateY(0);
     }
     45% {
-      transform: translateY(1rem);
-      -webkit-transform: translateY(1rem);
+      transform: translateY(6px);
+      -webkit-transform: translateY(6px);
     }
     100% {
       transform: translateY(0);
@@ -43,8 +43,8 @@ body {
       -webkit-transform: translateY(0);
     }
     40% {
-      transform: translateY(24px);
-      -webkit-transform: translateY(20px);
+      transform: translateY(6px);
+      -webkit-transform: translateY(6px);
     }
     100% {
       transform: translateY(0);
@@ -54,7 +54,7 @@ body {
   
 .left {
     animation-name: floating1;
-    animation-duration: 5.0s;
+    animation-duration: 9s;
     animation-iteration-count: infinite;
     animation-timing-function: ease-in-out;
     float: left; 
@@ -64,7 +64,7 @@ body {
 
 .right {
     animation-name: floating2;
-    animation-duration: 5.5s;
+    animation-duration: 8s;
     animation-iteration-count: infinite;
     animation-timing-function: ease-in-out;
     float: right; 
@@ -75,10 +75,11 @@ body {
 .notification {
     width: 80%;
     background: lightblue;
-    height: 30px;
+    height: 40px;
     margin-left: 10%;
     display: inline-block;
     font-size: 20px;
+    border-radius: 2px;
 }
   
 #notification {

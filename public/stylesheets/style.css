@@ -18,8 +18,8 @@ body {
     -webkit-transform: translateY(0);
   }
   45% {
-    transform: translateY(1rem);
-    -webkit-transform: translateY(1rem);
+    transform: translateY(6px);
+    -webkit-transform: translateY(6px);
   }
   100% {
     transform: translateY(0);
@@ -33,8 +33,8 @@ body {
     -webkit-transform: translateY(0);
   }
   40% {
-    transform: translateY(24px);
-    -webkit-transform: translateY(20px);
+    transform: translateY(6px);
+    -webkit-transform: translateY(6px);
   }
   100% {
     transform: translateY(0);
@@ -44,21 +44,23 @@ body {
 
 .left {
   animation-name: floating1;
-  animation-duration: 5.0s;
+  animation-duration: 10s;
   animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
   float: left; 
   position: absolute;
-  left: 20px;
+  left: 2vw;
+  top: 2vw;
 }
 .right {
   animation-name: floating2;
-  animation-duration: 5.5s;
+  animation-duration: 7s;
   animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
   float: right; 
   position: absolute;
-  right: 20px;
+  right: 2vw;
+  top: 2vw;
 }
 
 .notification {
@@ -68,6 +70,7 @@ body {
   margin-left: 10%;
   display: inline-block;
   font-size: 20px;
+  border-radius: 2px;
 }
 
 #notification {
@@ -86,8 +89,17 @@ body {
   font-family: 'Courier New', Courier, monospace;
   font-weight: bold;
   font-size: 7vw;
-  margin-top: 1px;
-  margin-bottom: 1px;
+  margin: 0px;
+  margin-bottom: 0px;
+}
+
+.subheadtext {
+  text-align: center;
+  color: lightgrey;
+  font-family: "Lucida Console";
+  font-size: 1.7vw;
+  margin-top: -15px;
+  margin-bottom: 17px;
 }
 
 main {
@@ -233,7 +245,7 @@ table {
 
 .statistics {
    color: white;
-   font-size: 2vw;
+   font-size: 1.7vw;
    text-align: right;
    font-family: "courier new";
    font-weight: bold;
@@ -242,7 +254,7 @@ table {
 
 .stat {
   color: white;
-  font-size: 1.7vw;
+  font-size: 1.5vw;
   text-align: right;
   font-family: "courier new";
 }
