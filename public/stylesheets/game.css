@@ -9,8 +9,7 @@ body {
     margin: 0px;
 }
 
-
-#body:fullscreen {
+body:fullscreen {
     background-color: red;
 }
 
@@ -230,6 +229,18 @@ table {
 
 .left-grid-container .hit{
     border: 1px solid red;
+}
+
+.miss:hover{
+    cursor: not-allowed;
+}
+
+.right-grid-container .hit:hover{
+    cursor: not-allowed;
+}
+
+.left-grid-container .hit:hover{
+    cursor: not-allowed
 }
 
 .subgridtext {
